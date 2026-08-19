@@ -7,11 +7,12 @@ function icon(glyph: string) {
   return function Icon({ size = 20, className = "", style, strokeWidth, ...props }: IconProps) {
     void strokeWidth;
     const merged: CSSProperties = { fontSize: size, ...style };
-    return <span className={`icon-glyph ${className}`} style={merged} {...props}>{glyph}</span>;
+    return <span className={`icon-glyph ${className}`} style={merged} aria-hidden="true" {...props}>{glyph}</span>;
   };
 }
 
 export const ArrowRight = icon("→");
+export const ArrowLeft = icon("←");
 export const ArrowDown = icon("↓");
 export const MoveUpRight = icon("↗");
 export const Check = icon("✓");
@@ -42,3 +43,4 @@ export const Clock3 = icon("◷");
 export const Linkedin = icon("in");
 export const Instagram = icon("◎");
 export const Github = icon("GH");
+export const Whatsapp = icon("WA");

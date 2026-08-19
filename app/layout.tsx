@@ -1,35 +1,25 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { headers } from "next/headers";
+import type { Metadata, Viewport } from "next";
+import { Footer } from "./components/Site";
+import { MotionObserver } from "./components/MotionObserver";
+import { SiteHeader } from "./components/SiteHeader";
+import { serializeJsonLd } from "./jsonLd";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#08090c",
+};
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers();
-  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "zeroberg.com";
-  const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.includes("localhost") ? "http" : "https");
-  const base = new URL(`${protocol}://${host}`);
-  const title = "Zeroberg — Your Digital Growth & Technology Partner";
+export function generateMetadata(): Metadata {
+  const base = new URL("https://zerobugg.com");
+  const title = "Zerobugg — Your Digital Growth & Technology Partner";
   const description = "Strategy, design, technology and growth — one digital partner for ambitious businesses.";
 
   return {
     metadataBase: base,
-    title: { default: title, template: "%s | Zeroberg" },
+    title: { default: title, template: "%s | Zerobugg" },
     description,
-    keywords: ["digital consulting company", "web development company", "software development company", "AI automation services", "digital transformation consulting"],
-    alternates: { canonical: "/" },
-    icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
-    openGraph: { title, description, type: "website", url: "/", siteName: "Zeroberg", images: [{ url: new URL("/og.png", base).toString(), width: 1733, height: 907, alt: "Zeroberg — Strategy. Technology. Growth. One Digital Partner." }] },
-    twitter: { card: "summary_large_image", title, description, images: [new URL("/og.png", base).toString()] },
+    icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }], shortcut: "/favicon.svg" },
   };
 }
 
@@ -40,23 +30,38 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: serializeJsonLd({
               "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Zeroberg",
-              url: "https://zeroberg.com",
-              slogan: "Your Digital Growth & Technology Partner",
-              description: "An integrated strategy, design, technology and growth partner for ambitious businesses.",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://zerobugg.com/#organization",
+                  name: "Zerobugg",
+                  url: "https://zerobugg.com",
+                  logo: "https://zerobugg.com/favicon.svg",
+                  slogan: "Your Digital Growth & Technology Partner",
+                  description: "An integrated strategy, design, engineering, automation and growth partner.",
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://zerobugg.com/#website",
+                  name: "Zerobugg",
+                  url: "https://zerobugg.com",
+                  publisher: { "@id": "https://zerobugg.com/#organization" },
+                },
+              ],
             }),
           }}
         />
-        {children}
+        <a className="skip-link" href="#main-content">Skip to content</a>
+        <SiteHeader />
+        <MotionObserver />
+        <main id="main-content" tabIndex={-1}>{children}</main>
+        <Footer />
       </body>
     </html>
   );

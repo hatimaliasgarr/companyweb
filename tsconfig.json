@@ -15,7 +15,8 @@
     "types": ["@cloudflare/workers-types"],
     "incremental": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*", "./app/*"],
+      "@/components/*": ["./app/components/*"]
     }
   },
   "include": [

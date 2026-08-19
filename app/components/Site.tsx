@@ -1,15 +1,9 @@
-import Link from "next/link";
-import { ArrowRight, Linkedin, Instagram, Github } from "./Icons";
-import { NewsletterForm, SiteHeader } from "./Interactive";
+import type { ReactNode } from "react";
+import { AppLink as Link } from "./AppLink";
+import { ArrowRight } from "./Icons";
 
-export function PageShell({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <SiteHeader />
-      <main>{children}</main>
-      <Footer />
-    </>
-  );
+export function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
+  return <div className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
 }
 
 export function SectionHeading({
@@ -40,15 +34,17 @@ export function PageHero({
   title,
   copy,
   children,
+  variant = "default",
 }: {
   index?: string;
   eyebrow: string;
   title: React.ReactNode;
   copy: string;
   children?: React.ReactNode;
+  variant?: "default" | "compact";
 }) {
   return (
-    <section className="page-hero">
+    <section className={`page-hero page-hero--${variant}`}>
       <div className="page-hero-grid" aria-hidden="true" />
       <p className="eyebrow"><span />{eyebrow}</p>
       <div className="page-hero-main">
@@ -65,17 +61,17 @@ export function PageHero({
   );
 }
 
-export function FinalCta({ title = <>Have an idea?<br /><em>Let&apos;s build it.</em></> }: { title?: React.ReactNode }) {
+export function FinalCta({ title = <>Ready to turn the problem<br />{" "}<em>into a plan?</em></> }: { title?: React.ReactNode }) {
   return (
     <section className="final-cta">
       <div className="final-orbit" aria-hidden="true"><span>Z</span></div>
-      <p className="eyebrow"><span />Your next move</p>
+      <p className="eyebrow"><span />Start with the challenge</p>
       <h2>{title}</h2>
       <div className="final-cta-row">
-        <p>Tell us where you want your business to go. We&apos;ll help you figure out how to get there.</p>
+        <p>Tell us what is stuck, changing or ready to grow. We&apos;ll help define the clearest next step.</p>
         <div>
-          <Link className="button button-light" href="/contact">Start your project <ArrowRight size={17} /></Link>
-          <Link className="text-link" href="/contact">Talk to Zeroberg <ArrowRight size={15} /></Link>
+          <Link className="button button-light" href="/contact">Tell us your challenge <ArrowRight size={17} /></Link>
+          <Link className="text-link" href="/process">See how we work <ArrowRight size={15} /></Link>
         </div>
       </div>
     </section>
@@ -87,20 +83,29 @@ export function Footer() {
     <footer className="footer">
       <div className="footer-top">
         <div className="footer-brand">
-          <Link className="wordmark" href="/">ZEROBERG<span>.</span></Link>
-          <p>Strategy × Technology × Growth</p>
-          <NewsletterForm />
+          <Link className="wordmark" href="/" translate="no">ZEROBUGG<span>.</span></Link>
+          <p>Design × Engineering × Automation × Growth</p>
+          <div className="footer-insights">
+            <p>Practical thinking for better digital decisions.</p>
+            <Link href="/insights">Read Zerobugg insights <ArrowRight size={16} /></Link>
+          </div>
         </div>
         <div className="footer-links">
-          <div><p>Services</p><Link href="/services/consulting">Consulting</Link><Link href="/services/web-development">Web development</Link><Link href="/services/software-development">Software</Link><Link href="/services/digital-marketing">Digital marketing</Link><Link href="/services/ai-automation">AI & automation</Link></div>
+          <div><p>Services</p><Link href="/services/consulting">Consulting</Link><Link href="/services/ui-ux">UI/UX design</Link><Link href="/services/web-development">Web development</Link><Link href="/services/software-development">Software</Link><Link href="/services/digital-marketing">Digital marketing</Link><Link href="/services/seo">SEO</Link><Link href="/services/ai-automation">AI & automation</Link><Link href="/services/analytics">Analytics</Link></div>
           <div><p>Company</p><Link href="/about">About</Link><Link href="/work">Work</Link><Link href="/process">Process</Link><Link href="/careers">Careers</Link><Link href="/contact">Contact</Link></div>
-          <div><p>Resources</p><Link href="/insights">Insights</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link><a href="mailto:hello@zeroberg.com">hello@zeroberg.com</a></div>
+          <div>
+            <p>Contact</p>
+            <span style={{ display: "block", color: "#e4e1da", fontSize: "14px", fontWeight: 600 }}>Hatim Aliasgar</span>
+            <a href="tel:+919752306452">+91 9752306452</a>
+            <a href="mailto:hatimaliasgar21@gmail.com">hatimaliasgar21@gmail.com</a>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
+          </div>
         </div>
       </div>
-      <div className="footer-word">ZEROBERG</div>
+      <div className="footer-word">ZEROBUGG</div>
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Zeroberg. All rights reserved.</p>
-        <div aria-label="Social profiles coming soon"><span title="LinkedIn profile coming soon"><Linkedin size={17} /></span><span title="Instagram profile coming soon"><Instagram size={17} /></span><span title="GitHub profile coming soon"><Github size={17} /></span></div>
+        <p>© {new Date().getFullYear()} Zerobugg. All rights reserved.</p>
       </div>
     </footer>
   );
