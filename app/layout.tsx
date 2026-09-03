@@ -45,6 +45,7 @@ export default function RootLayout({
                   logo: "https://zerobugg.com/brand/zerobugg-mark.png",
                   slogan: "Your Digital Growth & Technology Partner",
                   description: "An integrated strategy, design, engineering, automation and growth partner.",
+                  sameAs: ["https://www.instagram.com/zerobugg/"],
                 },
                 {
                   "@type": "WebSite",

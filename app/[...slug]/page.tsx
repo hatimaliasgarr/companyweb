@@ -418,6 +418,10 @@ function ContactPage() {
             </a>
             <span>Direct Email</span>
             <a href="mailto:hatimaliasgar21@gmail.com">hatimaliasgar21@gmail.com</a>
+            <span>Instagram</span>
+            <a href="https://www.instagram.com/zerobugg/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              @zerobugg <MoveUpRight size={14} />
+            </a>
             <span>How this form works</span>
             <p>It prepares a private email draft in your own mail app or WhatsApp. You review and send it yourself.</p>
           </div>

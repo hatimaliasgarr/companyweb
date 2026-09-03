@@ -191,9 +191,21 @@ test("emits parseable Organization, WebSite, Service and Breadcrumb schemas", as
   assert.ok(types.includes("WebSite"));
   assert.ok(types.includes("Service"));
   assert.ok(types.includes("BreadcrumbList"));
+  const orgSchema = flattened.find((schema) => schema["@type"] === "Organization");
+  assert.deepEqual(orgSchema.sameAs, ["https://www.instagram.com/zerobugg/"]);
   const serviceSchema = flattened.find((schema) => schema["@type"] === "Service");
   assert.equal(serviceSchema.url, "https://zerobugg.com/services/ui-ux");
   assert.equal(serviceSchema.areaServed, "Worldwide");
+});
+
+test("links the official Instagram profile on footer and contact page", async () => {
+  const home = await html("/");
+  assert.match(home.body, /href="https:\/\/www\.instagram\.com\/zerobugg\/"/);
+  assert.match(home.body, /target="_blank"/);
+  assert.match(home.body, /rel="noopener noreferrer"/);
+
+  const contact = await html("/contact");
+  assert.match(contact.body, /href="https:\/\/www\.instagram\.com\/zerobugg\/"/);
 });
 
 test("HTML-escapes every JSON-LD payload without changing its parsed data", async () => {

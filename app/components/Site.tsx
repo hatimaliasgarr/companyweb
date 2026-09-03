@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { AppLink as Link } from "./AppLink";
 import { BrandLockup } from "./BrandMark";
-import { ArrowRight } from "./Icons";
+import { ArrowRight, InstagramIcon } from "./Icons";
 
 export function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
   return <div className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
@@ -99,6 +99,7 @@ export function Footer() {
             <span style={{ display: "block", color: "#e4e1da", fontSize: "14px", fontWeight: 600 }}>Hatim Aliasgar</span>
             <a href="tel:+919752306452">+91 9752306452</a>
             <a href="mailto:hatimaliasgar21@gmail.com">hatimaliasgar21@gmail.com</a>
+            <a href="https://www.instagram.com/zerobugg/" target="_blank" rel="noopener noreferrer">Instagram (@zerobugg)</a>
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>
           </div>
@@ -107,6 +108,11 @@ export function Footer() {
       <div className="footer-word">ZEROBUGG</div>
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} Zerobugg. All rights reserved.</p>
+        <div>
+          <a href="https://www.instagram.com/zerobugg/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }} aria-label="Zerobugg on Instagram">
+            <InstagramIcon size={14} /> Instagram
+          </a>
+        </div>
       </div>
     </footer>
   );
