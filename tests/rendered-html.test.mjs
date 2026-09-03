@@ -77,7 +77,7 @@ test("integrates the supplied brand mark without duplicating its accessible name
   assert.equal(response.status, 200);
 
   const marks = [...body.matchAll(/<img\b[^>]*\bsrc="\/brand\/zerobugg-mark\.png"[^>]*>/g)].map((match) => match[0]);
-  assert.equal(marks.length, 3, "header, mobile navigation and footer should share the brand mark");
+  assert.equal(marks.length, 4, "header, mobile navigation, footer and positioning visual should share the brand mark");
   for (const mark of marks) {
     assert.match(mark, /\balt=""/);
     assert.match(mark, /\bwidth="256"/);

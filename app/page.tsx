@@ -14,6 +14,7 @@ import {
 } from "./components/Icons";
 import { insights, projects, solutions, technology } from "./data";
 import { ProcessExperience, ServiceExplorer } from "./components/HomeInteractions";
+import { BrandMark } from "./components/BrandMark";
 import { FinalCta, Reveal, SectionHeading } from "./components/Site";
 import { InfiniteSlider } from "./components/core/infinite-slider";
 
@@ -80,7 +81,11 @@ export default function Home() {
             {[
               "STRATEGY", "DESIGN", "TECHNOLOGY", "MARKETING", "AUTOMATION", "ANALYTICS",
             ].map((item) => <span key={item}>{item}</span>)}
-            <div><strong>Z</strong><p>ZEROBUGG</p><small>ONE DIGITAL PARTNER</small></div>
+            <div className="merge-visual-core">
+              <BrandMark />
+              <p>ZEROBUGG</p>
+              <small>ONE DIGITAL PARTNER</small>
+            </div>
           </div>
           <div className="positioning-note">
             <p>One roadmap.<br />{" "}One team.<br />{" "}<strong>One accountable partner.</strong></p>

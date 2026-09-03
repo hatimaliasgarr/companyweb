@@ -6,7 +6,7 @@ import { AppLink as Link } from "./AppLink";
 import { ArrowRight } from "./Icons";
 
 export function ServiceExplorer() {
-  const [active, setActive] = useState<number | null>(0);
+  const [active, setActive] = useState<number | null>(null);
 
   return (
     <div className="service-explorer">
