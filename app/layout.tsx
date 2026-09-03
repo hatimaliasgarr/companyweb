@@ -19,7 +19,7 @@ export function generateMetadata(): Metadata {
     metadataBase: base,
     title: { default: title, template: "%s | Zerobugg" },
     description,
-    icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }], shortcut: "/favicon.svg" },
+    icons: { icon: [{ url: "/brand/zerobugg-mark.png", type: "image/png", sizes: "256x256" }], shortcut: "/brand/zerobugg-mark.png" },
   };
 }
 
@@ -42,7 +42,7 @@ export default function RootLayout({
                   "@id": "https://zerobugg.com/#organization",
                   name: "Zerobugg",
                   url: "https://zerobugg.com",
-                  logo: "https://zerobugg.com/favicon.svg",
+                  logo: "https://zerobugg.com/brand/zerobugg-mark.png",
                   slogan: "Your Digital Growth & Technology Partner",
                   description: "An integrated strategy, design, engineering, automation and growth partner.",
                 },

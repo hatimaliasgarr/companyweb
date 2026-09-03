@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { AppLink as Link } from "./AppLink";
+import { BrandLockup } from "./BrandMark";
 import { ArrowRight } from "./Icons";
 
 export function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
@@ -83,7 +84,7 @@ export function Footer() {
     <footer className="footer">
       <div className="footer-top">
         <div className="footer-brand">
-          <Link className="wordmark" href="/" translate="no">ZEROBUGG<span>.</span></Link>
+          <Link className="brand-lockup brand-lockup--footer" href="/" aria-label="Zerobugg home" translate="no"><BrandLockup /></Link>
           <p>Design × Engineering × Automation × Growth</p>
           <div className="footer-insights">
             <p>Practical thinking for better digital decisions.</p>

@@ -38,7 +38,7 @@ const worker = {
     }
 
     if (url.pathname === "/favicon.ico") {
-      return Response.redirect(new URL("/favicon.svg", request.url), 308);
+      return Response.redirect(new URL("/brand/zerobugg-mark.png", request.url), 308);
     }
 
     if (url.pathname === "/_vinext/image") {

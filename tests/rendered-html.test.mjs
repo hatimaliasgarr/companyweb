@@ -72,6 +72,34 @@ test("renders sharper homepage copy without staging endorsements", async () => {
   assert.match(body, /name="theme-color" content="#08090c"/);
 });
 
+test("integrates the supplied brand mark without duplicating its accessible name or shifting layout", async () => {
+  const { response, body } = await html("/");
+  assert.equal(response.status, 200);
+
+  const marks = [...body.matchAll(/<img\b[^>]*\bsrc="\/brand\/zerobugg-mark\.png"[^>]*>/g)].map((match) => match[0]);
+  assert.equal(marks.length, 3, "header, mobile navigation and footer should share the brand mark");
+  for (const mark of marks) {
+    assert.match(mark, /\balt=""/);
+    assert.match(mark, /\bwidth="256"/);
+    assert.match(mark, /\bheight="256"/);
+  }
+
+  assert.match(body, /<link rel="icon" href="\/brand\/zerobugg-mark\.png"/);
+  const asset = await stat(new URL("../public/brand/zerobugg-mark.png", import.meta.url)).catch(() => null);
+  assert.ok(asset, "optimized brand mark should exist in public/brand");
+  assert.ok(asset.size <= 100_000, `brand mark is ${asset.size} bytes; budget is 100000`);
+});
+
+test("renders the mobile navigation trigger as a crisp vector instead of a font glyph", async () => {
+  const { response, body } = await html("/");
+  assert.equal(response.status, 200);
+
+  const trigger = body.match(/<button\b[^>]*aria-label="Open navigation"[^>]*>[\s\S]*?<\/button>/)?.[0] ?? "";
+  assert.match(trigger, /<svg\b[^>]*class="menu-icon"/);
+  assert.match(trigger, /viewBox="0 0 20 20"/);
+  assert.doesNotMatch(trigger, /≡/);
+});
+
 test("keeps the hero decision path available to assistive technology", async () => {
   const { body } = await html("/");
   assert.match(body, /class="partner-path"/);
@@ -274,5 +302,5 @@ test("adds baseline security headers and canonical-host redirects", async () => 
 
   const favicon = await fetchApp("/favicon.ico", { redirect: "manual" });
   assert.equal(favicon.status, 308);
-  assert.equal(favicon.headers.get("location"), "http://localhost/favicon.svg");
+  assert.equal(favicon.headers.get("location"), "http://localhost/brand/zerobugg-mark.png");
 });

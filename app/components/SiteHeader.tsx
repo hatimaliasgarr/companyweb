@@ -3,7 +3,16 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AppLink as Link } from "./AppLink";
-import { ArrowRight, Menu, X } from "./Icons";
+import { BrandLockup } from "./BrandMark";
+import { ArrowRight, X } from "./Icons";
+
+function MenuIcon() {
+  return (
+    <svg className="menu-icon" width={20} height={20} viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+      <path d="M3.5 5.5H16.5M3.5 10H16.5M3.5 14.5H16.5" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" />
+    </svg>
+  );
+}
 
 const navItems = [
   ["Home", "/"],
@@ -96,8 +105,8 @@ export function SiteHeader() {
     <>
       <div ref={progressRef} className="scroll-progress" aria-hidden="true" />
       <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
-        <Link className="wordmark" href="/" aria-label="Zerobugg home" translate="no">
-          ZEROBUGG<span>.</span>
+        <Link className="brand-lockup brand-lockup--header" href="/" aria-label="Zerobugg home" translate="no">
+          <BrandLockup />
         </Link>
         <nav className="desktop-nav" aria-label="Primary navigation">
           {desktopItems.map(([label, href]) => (
@@ -115,13 +124,15 @@ export function SiteHeader() {
           Tell us your challenge <ArrowRight size={15} />
         </Link>
         <button ref={menuButtonRef} className="menu-toggle" type="button" onClick={() => setOpen(true)} aria-label="Open navigation" aria-expanded={open} aria-controls="mobile-navigation">
-          <Menu size={20} />
+          <MenuIcon />
         </button>
       </header>
 
       <div ref={menuRef} id="mobile-navigation" className={`mobile-menu ${open ? "is-open" : ""}`} aria-hidden={!open} inert={!open} role="dialog" aria-modal="true" aria-label="Site navigation">
         <div className="mobile-menu-top">
-          <span className="wordmark" translate="no">ZEROBUGG<span>.</span></span>
+          <Link className="brand-lockup brand-lockup--menu" href="/" aria-label="Zerobugg home" translate="no" onClick={() => setOpen(false)}>
+            <BrandLockup />
+          </Link>
           <button ref={closeButtonRef} type="button" onClick={() => setOpen(false)} aria-label="Close navigation"><X size={24} /></button>
         </div>
         <nav aria-label="Mobile navigation">
