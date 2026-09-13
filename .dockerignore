@@ -1,0 +1,36 @@
+# Keep the build context lean; the image builds from a fresh `npm run build`.
+
+# VCS and local tooling state
+.git
+.gitignore
+.playwright-cli
+.wrangler
+.vinext
+output
+outputs
+
+# Build artifacts — rebuilt inside the image
+node_modules
+dist
+.next
+*.tsbuildinfo
+
+# Dependencies' caches
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Secrets
+.env*
+*.pem
+
+# Not needed inside the image
+README.md
+ZEROBUGG-UI-UX-STANDARDS.md
+examples
+
+# Docker artifacts themselves
+Dockerfile
+docker-compose.yml
+.dockerignore

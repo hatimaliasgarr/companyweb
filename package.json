@@ -11,6 +11,10 @@
     "build": "vinext build && node scripts/postbuild.mjs",
     "start": "node server.mjs",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
+    "docker:build": "docker build -t zerobugg-web .",
+    "docker:run": "docker run --rm -p 3000:3000 zerobugg-web",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"
   },
@@ -20,7 +24,8 @@
     "react-dom": "19.2.6",
     "react-server-dom-webpack": "19.2.6",
     "vinext": "1.0.0-beta.2",
-    "vite": "8.0.13"
+    "vite": "8.0.13",
+    "@vitejs/plugin-rsc": "0.5.26"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.37.1",
@@ -33,7 +38,6 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.2",
-    "@vitejs/plugin-rsc": "0.5.26",
     "drizzle-kit": "0.31.10",
     "eslint": "9.39.4",
     "eslint-plugin-jsx-a11y": "6.10.2",
