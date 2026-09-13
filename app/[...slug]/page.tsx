@@ -97,9 +97,9 @@ function DetailBreadcrumb({ current, currentHref, parent, parentHref }: { curren
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://zerobugg.com/" },
-      { "@type": "ListItem", position: 2, name: parent, item: `https://zerobugg.com${parentHref}` },
-      { "@type": "ListItem", position: 3, name: current, item: `https://zerobugg.com${currentHref}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://zerobugg.in/" },
+      { "@type": "ListItem", position: 2, name: parent, item: `https://zerobugg.in${parentHref}` },
+      { "@type": "ListItem", position: 3, name: current, item: `https://zerobugg.in${currentHref}` },
     ],
   };
   return (
@@ -207,9 +207,9 @@ function ServicePage({ service }: { service: (typeof services)[number] }) {
     name: service.title,
     description: service.description,
     serviceType: service.short,
-    url: `https://zerobugg.com/services/${service.slug}`,
+    url: `https://zerobugg.in/services/${service.slug}`,
     areaServed: "Worldwide",
-    provider: { "@type": "Organization", name: "Zerobugg", url: "https://zerobugg.com" },
+    provider: { "@type": "Organization", name: "Zerobugg", url: "https://zerobugg.in" },
   };
   return (
     <>
@@ -340,7 +340,7 @@ function formatDate(iso: string) {
 }
 
 function ArticlePage({ article }: { article: (typeof insights)[number] }) {
-  const articleUrl = `https://zerobugg.com/insights/${article.slug}`;
+  const articleUrl = `https://zerobugg.in/insights/${article.slug}`;
   const relatedService = services.find((service) => service.slug === relatedServiceByInsight[article.slug]);
   const schema = {
     "@context": "https://schema.org",
@@ -349,10 +349,10 @@ function ArticlePage({ article }: { article: (typeof insights)[number] }) {
     description: article.excerpt,
     url: articleUrl,
     mainEntityOfPage: articleUrl,
-    image: "https://zerobugg.com/og-zerobugg.png",
+    image: "https://zerobugg.in/og-zerobugg.png",
     datePublished: article.datePublished,
-    author: { "@type": "Organization", name: "Zerobugg", url: "https://zerobugg.com/about" },
-    publisher: { "@type": "Organization", name: "Zerobugg", url: "https://zerobugg.com" },
+    author: { "@type": "Organization", name: "Zerobugg", url: "https://zerobugg.in/about" },
+    publisher: { "@type": "Organization", name: "Zerobugg", url: "https://zerobugg.in" },
   };
   return (
     <>

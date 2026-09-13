@@ -29,10 +29,10 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
-    if ((url.hostname === "zerobugg.com" || url.hostname === "www.zerobugg.com") && (url.protocol !== "https:" || url.hostname !== "zerobugg.com")) {
+    if (url.hostname === "zerobugg.com" || url.hostname === "www.zerobugg.com" || url.hostname === "www.zerobugg.in") {
       const canonical = new URL(request.url);
       canonical.protocol = "https:";
-      canonical.hostname = "zerobugg.com";
+      canonical.hostname = "zerobugg.in";
       canonical.port = "";
       return Response.redirect(canonical, 308);
     }
@@ -62,10 +62,10 @@ const worker = {
     if (headers.get("content-type")?.includes("text/html")) {
       headers.set("Content-Security-Policy", "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' mailto:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'");
     }
-    if (url.protocol === "https:" && url.hostname === "zerobugg.com") {
+    if (url.protocol === "https:" && url.hostname === "zerobugg.in") {
       headers.set("Strict-Transport-Security", "max-age=31536000");
     }
-    if (!["zerobugg.com", "www.zerobugg.com", "localhost", "127.0.0.1"].includes(url.hostname)) {
+    if (!["zerobugg.in", "localhost", "127.0.0.1"].includes(url.hostname)) {
       headers.set("X-Robots-Tag", "noindex, nofollow");
     }
 

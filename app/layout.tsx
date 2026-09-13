@@ -11,7 +11,7 @@ export const viewport: Viewport = {
 };
 
 export function generateMetadata(): Metadata {
-  const base = new URL("https://zerobugg.com");
+  const base = new URL("https://zerobugg.in");
   const title = "Zerobugg — Your Digital Growth & Technology Partner";
   const description = "Strategy, design, technology and growth — one digital partner for ambitious businesses.";
 
@@ -44,10 +44,10 @@ export default function RootLayout({
               "@graph": [
                 {
                   "@type": "Organization",
-                  "@id": "https://zerobugg.com/#organization",
+                  "@id": "https://zerobugg.in/#organization",
                   name: "Zerobugg",
-                  url: "https://zerobugg.com",
-                  logo: "https://zerobugg.com/brand/zerobugg-mark.png",
+                  url: "https://zerobugg.in",
+                  logo: "https://zerobugg.in/brand/zerobugg-mark.png",
                   slogan: "Your Digital Growth & Technology Partner",
                   description: "An integrated strategy, design, engineering, automation and growth partner.",
                   sameAs: ["https://www.instagram.com/zerobugg/"],
@@ -62,10 +62,10 @@ export default function RootLayout({
                 },
                 {
                   "@type": "WebSite",
-                  "@id": "https://zerobugg.com/#website",
+                  "@id": "https://zerobugg.in/#website",
                   name: "Zerobugg",
-                  url: "https://zerobugg.com",
-                  publisher: { "@id": "https://zerobugg.com/#organization" },
+                  url: "https://zerobugg.in",
+                  publisher: { "@id": "https://zerobugg.in/#organization" },
                 },
               ],
             }),

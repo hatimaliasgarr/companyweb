@@ -47,7 +47,7 @@ test("keeps every rendered internal anchor on a live route", async () => {
     for (const match of body.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
       const href = match[1].replaceAll("&amp;", "&");
       if (!href.startsWith("/")) continue;
-      paths.add(new URL(href, "https://zerobugg.com").pathname);
+      paths.add(new URL(href, "https://zerobugg.in").pathname);
     }
   }
   for (const path of paths) {
@@ -165,21 +165,21 @@ test("returns true 404 responses for unknown and over-deep routes", async () => 
     assert.match(body, /Page Not Found|Wrong turn/);
     assert.match(body, /noindex/);
     assert.doesNotMatch(body, /rel="canonical"/);
-    assert.doesNotMatch(body, /property="og:url" content="https:\/\/zerobugg\.com\/"/);
+    assert.doesNotMatch(body, /property="og:url" content="https:\/\/zerobugg.in\/"/);
   }
 });
 
 test("uses production canonicals and only assigns social images that exist", async () => {
   const detail = await html("/services/ui-ux", { headers: { "x-forwarded-host": "preview.example", "x-forwarded-proto": "http" } });
-  assert.match(detail.body, /<link rel="canonical" href="https:\/\/zerobugg\.com\/services\/ui-ux"/);
+  assert.match(detail.body, /<link rel="canonical" href="https:\/\/zerobugg.in\/services\/ui-ux"/);
   assert.match(detail.body, /property="og:site_name" content="Zerobugg"/);
-  assert.match(detail.body, /property="og:image" content="https:\/\/zerobugg\.com\/og-zerobugg\.png"/);
+  assert.match(detail.body, /property="og:image" content="https:\/\/zerobugg.in\/og-zerobugg\.png"/);
   assert.match(detail.body, /name="twitter:card" content="summary_large_image"/);
-  assert.match(detail.body, /name="twitter:image" content="https:\/\/zerobugg\.com\/og-zerobugg\.png"/);
+  assert.match(detail.body, /name="twitter:image" content="https:\/\/zerobugg.in\/og-zerobugg\.png"/);
   assert.doesNotMatch(detail.body, /preview\.example/);
 
   const collection = await html("/services");
-  assert.match(collection.body, /property="og:image" content="https:\/\/zerobugg\.com\/og-zerobugg\.png"/);
+  assert.match(collection.body, /property="og:image" content="https:\/\/zerobugg.in\/og-zerobugg\.png"/);
   assert.match(collection.body, /name="twitter:card" content="summary_large_image"/);
 });
 
@@ -196,7 +196,7 @@ test("emits parseable Organization, WebSite, Service and Breadcrumb schemas", as
   const orgSchema = flattened.find((schema) => schema["@type"] === "Organization");
   assert.deepEqual(orgSchema.sameAs, ["https://www.instagram.com/zerobugg/"]);
   const serviceSchema = flattened.find((schema) => schema["@type"] === "Service");
-  assert.equal(serviceSchema.url, "https://zerobugg.com/services/ui-ux");
+  assert.equal(serviceSchema.url, "https://zerobugg.in/services/ui-ux");
   assert.equal(serviceSchema.areaServed, "Worldwide");
 });
 
@@ -234,8 +234,8 @@ test("keeps homepage JavaScript within the shipping budget", async () => {
 
 test("uses a social card that matches the current Zerobugg brand", async () => {
   const home = await html("/");
-  assert.match(home.body, /property="og:image" content="https:\/\/zerobugg\.com\/og-zerobugg\.png"/);
-  assert.match(home.body, /name="twitter:image" content="https:\/\/zerobugg\.com\/og-zerobugg\.png"/);
+  assert.match(home.body, /property="og:image" content="https:\/\/zerobugg.in\/og-zerobugg\.png"/);
+  assert.match(home.body, /name="twitter:image" content="https:\/\/zerobugg.in\/og-zerobugg\.png"/);
   const asset = new URL("../public/og-zerobugg.png", import.meta.url);
   assert.ok((await stat(asset)).size > 10_000);
 });
@@ -272,8 +272,8 @@ test("uses an internationally dialable phone link", async () => {
 test("keeps draft, sample and empty publishing surfaces out of the index", async () => {
   const sitemap = await html("/sitemap.xml");
   assert.equal(sitemap.response.status, 200);
-  assert.match(sitemap.body, /https:\/\/zerobugg\.com\/services\/ui-ux/);
-  assert.doesNotMatch(sitemap.body, /https:\/\/zerobugg\.com\/work|https:\/\/zerobugg\.com\/careers|\/privacy<|\/terms<|northstar-commerce|kinetic-ops|form-health/);
+  assert.match(sitemap.body, /https:\/\/zerobugg.in\/services\/ui-ux/);
+  assert.doesNotMatch(sitemap.body, /https:\/\/zerobugg.in\/work|https:\/\/zerobugg.in\/careers|\/privacy<|\/terms<|northstar-commerce|kinetic-ops|form-health/);
 
   for (const route of ["/privacy", "/terms", "/work", "/work/multi-market-commerce", "/careers"]) {
     const page = await html(route);
@@ -282,7 +282,7 @@ test("keeps draft, sample and empty publishing surfaces out of the index", async
 
   const robots = await html("/robots.txt");
   assert.equal(robots.response.status, 200);
-  assert.match(robots.body, /Sitemap: https:\/\/zerobugg\.com\/sitemap\.xml/);
+  assert.match(robots.body, /Sitemap: https:\/\/zerobugg.in\/sitemap\.xml/);
 });
 
 test("keeps the unconfigured contact API honest", async () => {
@@ -312,7 +312,7 @@ test("adds baseline security headers and canonical-host redirects", async () => 
 
   const redirect = await fetchApp("http://www.zerobugg.com/about", { redirect: "manual" });
   assert.equal(redirect.status, 308);
-  assert.equal(redirect.headers.get("location"), "https://zerobugg.com/about");
+  assert.equal(redirect.headers.get("location"), "https://zerobugg.in/about");
 
   const favicon = await fetchApp("/favicon.ico", { redirect: "manual" });
   assert.equal(favicon.status, 308);
