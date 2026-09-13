@@ -160,7 +160,7 @@ button { color:inherit; }
 .final-orbit::before,.final-orbit::after { content:""; position:absolute; border:1px solid rgba(255,255,255,.18); border-radius:50%; inset:16%; }
 .final-orbit::after { inset:32%; }
 .final-orbit span { position:absolute; inset:39%; display:grid; place-items:center; border-radius:50%; background:rgba(255,255,255,.1); font-size:70px; font-weight:700; }
-.footer { padding:90px max(28px,calc((100vw - 1320px)/2)) 28px; background:#08090c; }
+.footer { container-type:inline-size; padding:90px max(28px,calc((100vw - 1320px)/2)) 28px; background:#08090c; }
 .footer-top { display:grid; grid-template-columns:1.2fr .8fr; gap:80px; }
 .brand-lockup--footer { gap:12px; }
 .brand-lockup--footer .brand-mark { width:44px; height:44px; }
@@ -817,8 +817,8 @@ button { color:inherit; }
   .footer-links { grid-template-columns:1fr 1fr; }
   .footer-links>div { gap:10px; }
   .footer-links>div:last-child { grid-column:1/-1; }
-  .footer-word { margin-top:48px; font-size:clamp(62px,20.5vw,88px); }
-  .footer-bottom { margin-top:20px; padding-top:16px; }
+  .footer-word { margin-top:48px; font-size:min(88px,20.2cqw); }
+  .footer-bottom { margin-top:20px; padding-top:16px; font-size:10px; }
   .footer-bottom { gap:20px; align-items:flex-start; }
   .detail-breadcrumb { top:76px; left:clamp(16px,5vw,20px); right:clamp(16px,5vw,20px); }
   .page-hero { min-height:520px; padding:112px clamp(16px,5vw,20px) 58px; justify-content:flex-end; }
