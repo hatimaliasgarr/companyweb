@@ -1,0 +1,35 @@
+# Zerobugg
+
+> Zerobugg is an integrated digital partner: strategy, product design, web and software development, AI automation, digital growth and analytics — delivered by one accountable team. Zerobugg helps businesses diagnose the constraint holding growth back, prioritize the roadmap and ship the work.
+
+Zerobugg works with ambitious businesses that want one team accountable for both the plan and the delivery, instead of coordinating separate agencies for consulting, design, engineering and marketing.
+
+## Services
+
+- [Business & Technology Consulting](https://zerobugg.com/services/consulting): business analysis, digital strategy, product strategy and an executable transformation roadmap.
+- [UI/UX & Product Design](https://zerobugg.com/services/ui-ux): UX research, information architecture, prototyping, usability testing and design systems.
+- [Website & E-commerce Development](https://zerobugg.com/services/web-development): fast, accessible business websites and storefronts built around the customer journey.
+- [Software Development](https://zerobugg.com/services/software-development): custom software, integrations and internal tools when off-the-shelf products do not fit.
+- [SEO](https://zerobugg.com/services/seo): technical SEO, content strategy and sustainable organic growth programs.
+- [Digital & Performance Marketing](https://zerobugg.com/services/digital-marketing): growth strategy, content, paid campaigns and conversion measurement.
+- [AI & Business Automation](https://zerobugg.com/services/ai-automation): practical AI integrations and workflow automation with clear human review.
+- [Analytics & Business Intelligence](https://zerobugg.com/services/analytics): trusted tracking, dashboards and evidence-led decision support.
+
+## Insights
+
+Practical perspectives on digital strategy, product decisions and growth:
+
+- [How Much Should a Business Website Cost?](https://zerobugg.com/insights/business-website-cost)
+- [Website vs. Web Application: Which Do You Need?](https://zerobugg.com/insights/website-vs-web-application)
+- [Where AI Automation Can Remove Repetitive Work](https://zerobugg.com/insights/ai-automation-repetitive-work)
+- [SEO vs. Paid Advertising: Choosing the Right Mix](https://zerobugg.com/insights/seo-vs-paid-advertising)
+- [How to Digitally Transform a Traditional Business](https://zerobugg.com/insights/digitally-transform-traditional-business)
+
+## Company
+
+- [About Zerobugg](https://zerobugg.com/about): how the team works across strategy, design, engineering, automation and growth.
+- [How We Work](https://zerobugg.com/process): the Zerobugg method from diagnosis to delivery and improvement.
+- [Solutions](https://zerobugg.com/solutions): start from the outcome — launch, modernize, generate demand, build a product, automate operations or grow commerce.
+- [Contact](https://zerobugg.com/contact): describe the business challenge and start a project brief.
+
+Contact: hatimaliasgar21@gmail.com

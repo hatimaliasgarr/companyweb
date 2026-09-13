@@ -19,7 +19,12 @@ export function generateMetadata(): Metadata {
     metadataBase: base,
     title: { default: title, template: "%s | Zerobugg" },
     description,
-    icons: { icon: [{ url: "/brand/zerobugg-mark.png", type: "image/png", sizes: "256x256" }], shortcut: "/brand/zerobugg-mark.png" },
+    icons: {
+      icon: [{ url: "/brand/zerobugg-mark.png", type: "image/png", sizes: "256x256" }],
+      shortcut: "/brand/zerobugg-mark.png",
+      apple: [{ url: "/brand/zerobugg-mark.png", sizes: "180x180" }],
+    },
+    verification: { google: process.env.GOOGLE_SITE_VERIFICATION || undefined },
   };
 }
 
@@ -46,6 +51,14 @@ export default function RootLayout({
                   slogan: "Your Digital Growth & Technology Partner",
                   description: "An integrated strategy, design, engineering, automation and growth partner.",
                   sameAs: ["https://www.instagram.com/zerobugg/"],
+                  contactPoint: [
+                    {
+                      "@type": "ContactPoint",
+                      contactType: "customer support",
+                      email: "hatimaliasgar21@gmail.com",
+                      availableLanguage: ["English"],
+                    },
+                  ],
                 },
                 {
                   "@type": "WebSite",

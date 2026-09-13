@@ -154,7 +154,8 @@ test("gives each insight topic substantive, distinct content", async () => {
   assert.match(automation.body, /Keep judgment and accountability visible/);
   assert.match(automation.body, /Pilot one workflow and measure the whole result/);
   assert.doesNotMatch(cost.body, /Keep judgment and accountability visible/);
-  assert.doesNotMatch(cost.body, /Updated 18 Aug 2026|datePublished|dateModified/);
+  assert.doesNotMatch(cost.body, /Updated 18 Aug 2026|dateModified/);
+  assert.match(cost.body, /"datePublished":"2026-08-18"/);
 });
 
 test("returns true 404 responses for unknown and over-deep routes", async () => {
@@ -172,8 +173,9 @@ test("uses production canonicals and only assigns social images that exist", asy
   const detail = await html("/services/ui-ux", { headers: { "x-forwarded-host": "preview.example", "x-forwarded-proto": "http" } });
   assert.match(detail.body, /<link rel="canonical" href="https:\/\/zerobugg\.com\/services\/ui-ux"/);
   assert.match(detail.body, /property="og:site_name" content="Zerobugg"/);
-  assert.doesNotMatch(detail.body, /property="og:image"/);
-  assert.match(detail.body, /name="twitter:card" content="summary"/);
+  assert.match(detail.body, /property="og:image" content="https:\/\/zerobugg\.com\/og-zerobugg\.png"/);
+  assert.match(detail.body, /name="twitter:card" content="summary_large_image"/);
+  assert.match(detail.body, /name="twitter:image" content="https:\/\/zerobugg\.com\/og-zerobugg\.png"/);
   assert.doesNotMatch(detail.body, /preview\.example/);
 
   const collection = await html("/services");

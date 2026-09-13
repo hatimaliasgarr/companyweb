@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title: { absolute: "Zerobugg — Your Digital Growth & Technology Partner" },
   description: "Zerobugg helps businesses diagnose digital bottlenecks and deliver strategy, product design, software, automation and growth through one accountable team.",
   alternates: { canonical: "/" },
-  openGraph: { title: "Zerobugg — Your Digital Growth & Technology Partner", description: "Zerobugg helps businesses diagnose digital bottlenecks and deliver strategy, product design, software, automation and growth through one accountable team.", type: "website", url: "/", siteName: "Zerobugg", images: [{ url: "/og-zerobugg.png", width: 1733, height: 907, alt: "Zerobugg — Strategy. Technology. Growth. One Digital Partner." }] },
+  openGraph: { title: "Zerobugg — Your Digital Growth & Technology Partner", description: "Zerobugg helps businesses diagnose digital bottlenecks and deliver strategy, product design, software, automation and growth through one accountable team.", type: "website", url: "/", siteName: "Zerobugg", images: [{ url: "/og-zerobugg.png", width: 1735, height: 906, alt: "Zerobugg — Strategy. Technology. Growth. One Digital Partner." }] },
   twitter: { card: "summary_large_image", title: "Zerobugg — Your Digital Growth & Technology Partner", description: "Zerobugg helps businesses diagnose digital bottlenecks and deliver strategy, product design, software, automation and growth through one accountable team.", images: ["/og-zerobugg.png"] },
 };
 

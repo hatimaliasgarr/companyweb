@@ -224,6 +224,7 @@ export type Insight = {
   metaDescription: string;
   excerpt: string;
   read: string;
+  datePublished: string;
   lead: string;
   sections: Array<{ id: string; title: string; paragraphs: string[]; points?: string[] }>;
   takeaway: string;
@@ -238,6 +239,7 @@ export const insights: Insight[] = [
     metaDescription: "Understand what drives business website cost, how to compare proposals fairly and how to fund the smallest complete version without creating expensive rework.",
     excerpt: "A practical way to think about scope, complexity, value and the hidden cost of underbuilding.",
     read: "7 min read",
+    datePublished: "2026-08-18",
     lead: "The useful question is not only what a website costs. It is what the website must do, how complex the operation behind it is and what underbuilding will cost later.",
     sections: [
       {
@@ -276,6 +278,7 @@ export const insights: Insight[] = [
     metaDescription: "Compare websites and web applications by user tasks, data, permissions and operating responsibility, then choose the simplest architecture that supports the full job.",
     excerpt: "The difference is less about labels and more about workflows, users and operational responsibility.",
     read: "6 min read",
+    datePublished: "2026-08-18",
     lead: "A website primarily informs and converts. A web application lets people perform ongoing tasks, manage data or run a workflow. Many useful products sit somewhere between the two.",
     sections: [
       {
@@ -314,6 +317,7 @@ export const insights: Insight[] = [
     metaDescription: "Find repetitive workflows that are ready for AI automation, keep human judgment visible and run a bounded pilot that measures review effort as well as time saved.",
     excerpt: "A grounded framework for finding tasks that are ready for automation—and the ones that are not.",
     read: "8 min read",
+    datePublished: "2026-08-18",
     lead: "Start with repetitive, rules-heavy work where inputs and outputs can be observed—not with a tool looking for a problem.",
     sections: [
       {
@@ -352,6 +356,7 @@ export const insights: Insight[] = [
     metaDescription: "Compare the roles, economics and time horizons of SEO and paid advertising, then build a resilient acquisition mix around qualified demand and conversion.",
     excerpt: "Two very different acquisition engines, one shared job: profitable, dependable demand.",
     read: "5 min read",
+    datePublished: "2026-08-18",
     lead: "Paid media rents immediate attention; SEO compounds relevant visibility over time. The right mix depends on urgency, economics and how your buyers look for help.",
     sections: [
       {
@@ -390,6 +395,7 @@ export const insights: Insight[] = [
     metaDescription: "Modernize a traditional business by mapping real friction, improving one meaningful journey end to end and measuring adoption alongside technical delivery.",
     excerpt: "Start with friction, not software. A useful sequence for modernization that teams can actually adopt.",
     read: "9 min read",
+    datePublished: "2026-08-18",
     lead: "Transformation starts where customers or employees lose time, information or trust—not with a software shopping list.",
     sections: [
       {

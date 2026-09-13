@@ -75,19 +75,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description,
     alternates: { canonical: `/${slug.join("/")}` },
     robots: ["privacy", "terms", "work", "careers"].includes(section) ? { index: false, follow: true } : undefined,
-    openGraph: { title, description, url: `/${slug.join("/")}`, siteName: "Zerobugg", images: [{ url: "/og-zerobugg.png", width: 1733, height: 907, alt: "Zerobugg — Strategy. Technology. Growth. One Digital Partner." }] },
+    openGraph: { title, description, url: `/${slug.join("/")}`, siteName: "Zerobugg", images: [{ url: "/og-zerobugg.png", width: 1735, height: 906, alt: "Zerobugg — Strategy. Technology. Growth. One Digital Partner." }] },
     twitter: { card: "summary_large_image", title, description, images: ["/og-zerobugg.png"] },
   };
 }
 
 function detailMeta(title: string, description: string, path: string, type: "website" | "article" = "website", index = true): Metadata {
+  const image = { url: "/og-zerobugg.png", width: 1735, height: 906, alt: "Zerobugg — Strategy. Technology. Growth. One Digital Partner." };
   return {
     title,
     description,
     alternates: { canonical: path },
     robots: index ? undefined : { index: false, follow: true },
-    openGraph: { title, description, url: path, type, siteName: "Zerobugg", images: [] },
-    twitter: { card: "summary", title, description, images: [] },
+    openGraph: { title, description, url: path, type, siteName: "Zerobugg", images: [image] },
+    twitter: { card: "summary_large_image", title, description, images: [image.url] },
   };
 }
 
@@ -334,6 +335,10 @@ function InsightsPage() {
   );
 }
 
+function formatDate(iso: string) {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+}
+
 function ArticlePage({ article }: { article: (typeof insights)[number] }) {
   const articleUrl = `https://zerobugg.com/insights/${article.slug}`;
   const relatedService = services.find((service) => service.slug === relatedServiceByInsight[article.slug]);
@@ -344,6 +349,8 @@ function ArticlePage({ article }: { article: (typeof insights)[number] }) {
     description: article.excerpt,
     url: articleUrl,
     mainEntityOfPage: articleUrl,
+    image: "https://zerobugg.com/og-zerobugg.png",
+    datePublished: article.datePublished,
     author: { "@type": "Organization", name: "Zerobugg", url: "https://zerobugg.com/about" },
     publisher: { "@type": "Organization", name: "Zerobugg", url: "https://zerobugg.com" },
   };
@@ -352,7 +359,7 @@ function ArticlePage({ article }: { article: (typeof insights)[number] }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
       <DetailBreadcrumb current={article.title} currentHref={`/insights/${article.slug}`} parent="Insights" parentHref="/insights" />
       <article className="article-page">
-        <header className="article-hero"><p className="eyebrow"><span />{article.category}</p><h1>{article.title}</h1><div><span><Clock3 size={15} />{article.read}</span><span>Zerobugg perspective</span></div></header>
+        <header className="article-hero"><p className="eyebrow"><span />{article.category}</p><h1>{article.title}</h1><div><span><Clock3 size={15} />{article.read}</span><time dateTime={article.datePublished}>{formatDate(article.datePublished)}</time><span>Zerobugg perspective</span></div></header>
         <div className="article-body">
           <aside><p>In this article</p>{article.sections.map((section) => <a href={`#${section.id}`} key={section.id}>{section.title}</a>)}</aside>
           <div>

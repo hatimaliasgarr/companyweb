@@ -7,6 +7,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticPaths.map((path) => ({ url: `${base}${path}` })),
     ...services.map((service) => ({ url: `${base}/services/${service.slug}` })),
-    ...insights.map((article) => ({ url: `${base}/insights/${article.slug}` })),
+    ...insights.map((article) => ({
+      url: `${base}/insights/${article.slug}`,
+      lastModified: new Date(`${article.datePublished}T00:00:00Z`),
+    })),
   ];
 }
