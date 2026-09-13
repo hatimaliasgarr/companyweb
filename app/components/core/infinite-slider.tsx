@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useSyncExternalStore } from "react";
+import React, { useRef, useSyncExternalStore } from "react";
 
 const emptySubscribe = () => () => {};
 
@@ -21,7 +21,7 @@ export function InfiniteSlider({
   direction = "horizontal",
   className = "",
 }: InfiniteSliderProps) {
-  const [isHovered, setIsHovered] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
   const isMounted = useSyncExternalStore(
     emptySubscribe,
     () => true,
@@ -29,15 +29,23 @@ export function InfiniteSlider({
   );
 
   const isHorizontal = direction === "horizontal";
-  const activeDuration = isHovered && speedOnHover ? duration * (100 / speedOnHover) : duration;
+  // Changing animation-duration mid-flight remaps the animation's progress and
+  // makes the track jump; adjusting playbackRate keeps the current position.
+  const setPlaybackRate = (rate: number) => {
+    for (const animation of trackRef.current?.getAnimations() ?? []) {
+      animation.playbackRate = rate;
+    }
+  };
+  const hoverRate = speedOnHover ? speedOnHover / 100 : 1;
 
   return (
     <div
       className={`infinite-slider-container overflow-hidden w-full ${className}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => setPlaybackRate(hoverRate)}
+      onMouseLeave={() => setPlaybackRate(1)}
     >
       <div
+        ref={trackRef}
         className="infinite-slider-track"
         style={{
           display: "flex",
@@ -45,8 +53,7 @@ export function InfiniteSlider({
           flexWrap: "nowrap",
           width: "max-content",
           gap: `${gap}px`,
-          animationDuration: `${activeDuration}s`,
-          animationPlayState: isHovered && speedOnHover === undefined ? "paused" : "running",
+          animationDuration: `${duration}s`,
         }}
       >
         <div
