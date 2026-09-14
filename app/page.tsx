@@ -4,7 +4,6 @@ import { AppLink as Link } from "./components/AppLink";
 import {
   ArrowRight,
   Check,
-  CircleDot,
   MoveUpRight,
 } from "./components/Icons";
 import { insights, industries, services, solutions, technology } from "./data";
@@ -50,10 +49,8 @@ export default function Home() {
     <>
       <section className="hero" aria-labelledby="hero-title">
         <HeroVideo />
-        <div className="hero-grid" aria-hidden="true" />
-        <div className="hero-stars" aria-hidden="true" />
         <div className="hero-copy">
-          <p className="hero-badge"><span /> Your digital growth &amp; technology partner</p>
+          <p className="hero-badge">Your digital growth &amp; technology partner</p>
           <h1 id="hero-title">
             From business challenge<br />{" "}
             to digital growth.<br />{" "}
@@ -68,7 +65,7 @@ export default function Home() {
       </section>
 
       <section className="tech-strip" aria-label="Technology we build with">
-        <div className="tech-label"><CircleDot size={14} /> Technology we build with</div>
+        <div className="tech-label">Technology we build with</div>
         {/* A labelled scroll region needs a focus target for keyboard-only horizontal scrolling. */}
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
         <div className="tech-rail" role="region" aria-label="Scrollable technology list" tabIndex={0}>
@@ -128,7 +125,6 @@ export default function Home() {
                       <div className="roadmap-track"><i style={{ "--s": `${row.start}%`, "--w": `${row.span}%` } as CSSProperties} /></div>
                     </div>
                   ))}
-                  <span className="roadmap-now" />
                 </div>
               </div>
             </div>
@@ -257,7 +253,7 @@ export default function Home() {
         <Reveal>
           <div className="posts-heading">
             <div>
-              <p className="eyebrow"><span />Insights</p>
+              <p className="eyebrow">Insights</p>
               <h2>Useful thinking for<br />{" "}<em>digital decision-makers.</em></h2>
             </div>
             <Link className="button button-ghost" href="/insights">Read all insights <ArrowRight size={16} /></Link>

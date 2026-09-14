@@ -192,7 +192,7 @@ function ServicesPage() {
           );
         })}
       </section>
-      <section className="service-callout section-pad"><p className="eyebrow"><span />Not sure where to start?</p><h2>Bring us the problem,<br />{" "}<em>not a prescribed solution.</em></h2><p>We will help diagnose what is holding the business back, what should happen first and what can wait.</p><Link className="button button-light" href={`/contact?need=${encodeURIComponent("Business & Technology Consulting")}`}>Talk to a strategist <ArrowRight size={17} /></Link></section>
+      <section className="service-callout section-pad"><p className="eyebrow">Not sure where to start?</p><h2>Bring us the problem,<br />{" "}<em>not a prescribed solution.</em></h2><p>We will help diagnose what is holding the business back, what should happen first and what can wait.</p><Link className="button button-light" href={`/contact?need=${encodeURIComponent("Business & Technology Consulting")}`}>Talk to a strategist <ArrowRight size={17} /></Link></section>
       <FinalCta />
     </>
   );
@@ -220,7 +220,7 @@ function ServicePage({ service }: { service: (typeof services)[number] }) {
       </PageHero>
       <section className="service-detail-intro section-pad light-section">
         <div className="service-icon-large"><Icon size={52} strokeWidth={1.15} /></div>
-        <div><p className="eyebrow"><span />Capability</p><h2>{service.description}</h2></div>
+        <div><p className="eyebrow">Capability</p><h2>{service.description}</h2></div>
         <div><p>{service.fit}</p></div>
       </section>
       <section className="deliverables section-pad">
@@ -232,13 +232,13 @@ function ServicePage({ service }: { service: (typeof services)[number] }) {
         <div>{service.outcomes.map((item) => <Reveal key={item}><Check /><p>{item}</p></Reveal>)}</div>
       </section>
       <section className="service-method section-pad">
-        <p className="eyebrow"><span />How we approach it</p>
+        <p className="eyebrow">How we approach it</p>
         <h2>{service.approach}</h2>
         <Link className="text-link" href={`/contact?need=${encodeURIComponent(service.title)}`}>Talk through this capability <ArrowRight size={16} /></Link>
       </section>
       {relatedInsight && (
         <section className="related-content section-pad light-section" aria-labelledby="related-insight-title">
-          <p className="eyebrow"><span />Related insight</p>
+          <p className="eyebrow">Related insight</p>
           <div>
             <h2 id="related-insight-title">{relatedInsight.title}</h2>
             <p>{relatedInsight.excerpt}</p>
@@ -288,7 +288,7 @@ function ProjectPage({ project }: { project: (typeof projects)[number] }) {
     <>
       <DetailBreadcrumb current={project.name} currentHref={`/work/${project.slug}`} parent="Concept studies" parentHref="/work" />
       <section className={`case-hero ${project.tone}`}>
-        <p className="eyebrow"><span />Illustrative concept / {project.industry}</p>
+        <p className="eyebrow">Illustrative concept / {project.industry}</p>
         <h1>{project.name}</h1><p>{project.category}</p>
         <div className="case-hero-ui"><div className="project-ui"><div><span /><span /><span /></div><p>{project.name}</p><div className="ui-lines"><span /><span /><span /><span /></div><div className="ui-chart"><i /><i /><i /><i /><i /></div></div></div>
         <span className="case-disclaimer">ILLUSTRATIVE CONCEPT — NOT A PUBLISHED CLIENT ENGAGEMENT</span>
@@ -359,7 +359,7 @@ function ArticlePage({ article }: { article: (typeof insights)[number] }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
       <DetailBreadcrumb current={article.title} currentHref={`/insights/${article.slug}`} parent="Insights" parentHref="/insights" />
       <article className="article-page">
-        <header className="article-hero"><p className="eyebrow"><span />{article.category}</p><h1>{article.title}</h1><div><span><Clock3 size={15} />{article.read}</span><time dateTime={article.datePublished}>{formatDate(article.datePublished)}</time><span>Zerobugg perspective</span></div></header>
+        <header className="article-hero"><p className="eyebrow">{article.category}</p><h1>{article.title}</h1><div><span><Clock3 size={15} />{article.read}</span><time dateTime={article.datePublished}>{formatDate(article.datePublished)}</time><span>Zerobugg perspective</span></div></header>
         <div className="article-body">
           <aside><p>In this article</p>{article.sections.map((section) => <a href={`#${section.id}`} key={section.id}>{section.title}</a>)}</aside>
           <div>
@@ -412,7 +412,7 @@ function ContactPage() {
       <PageHero variant="compact" eyebrow="Contact" title={<>Tell us what<br />{" "}<em>needs to change.</em></>} copy="Share the business challenge in plain language. You do not need to have the solution figured out." />
       <section className="contact-section section-pad light-section">
         <div className="contact-aside">
-          <p className="eyebrow"><span />Start here</p>
+          <p className="eyebrow">Start here</p>
           <h2>A useful first conversation.</h2>
           <p>We will ask about the business, the people involved, the current reality and the result you are trying to create.</p>
           <div>

@@ -22,7 +22,7 @@ export function SectionHeading({
 }) {
   return (
     <div className={`section-heading ${light ? "on-light" : ""} ${center ? "on-center" : ""}`}>
-      <p className="eyebrow"><span />{eyebrow}</p>
+      <p className="eyebrow">{eyebrow}</p>
       <div>
         <h2>{title}</h2>
         {copy && <p>{copy}</p>}
@@ -48,8 +48,7 @@ export function PageHero({
 }) {
   return (
     <section className={`page-hero page-hero--${variant}`}>
-      <div className="page-hero-grid" aria-hidden="true" />
-      <p className="eyebrow"><span />{eyebrow}</p>
+      <p className="eyebrow">{eyebrow}</p>
       <div className="page-hero-main">
         <div>
           {index && <span className="page-index">{index}</span>}
@@ -67,7 +66,6 @@ export function PageHero({
 export function FinalCta({ title = <>Ready to turn the problem<br />{" "}<em>into a plan?</em></> }: { title?: React.ReactNode }) {
   return (
     <section className="final-cta">
-      <div className="final-orbit" aria-hidden="true"><span>Z</span></div>
       <div className="final-cta-grid">
         <div className="final-visual-card" aria-hidden="true">
           <p className="final-visual-label">The working path</p>
@@ -84,7 +82,7 @@ export function FinalCta({ title = <>Ready to turn the problem<br />{" "}<em>int
           ))}
         </div>
         <div className="final-copy">
-          <p className="eyebrow"><span />Start with the challenge</p>
+          <p className="eyebrow">Start with the challenge</p>
           <h2>{title}</h2>
           <div className="final-cta-row">
             <p>Tell us what is stuck, changing or ready to grow. We&apos;ll help define the clearest next step.</p>
