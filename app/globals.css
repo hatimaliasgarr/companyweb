@@ -53,7 +53,8 @@ h1 em { color:#8f90a0; font-family:Georgia,serif; font-weight:400; }
 @media (max-width:1050px) { .hero { padding-top:170px; } }
 /* Portrait: size the 16:9 video by width so the whole planet fits, horizon just under the headline */
 @media (max-width:1050px) and (orientation:portrait) { .hero-video { inset:auto; left:50%; top:calc(50% + 28px - 27vw); width:136%; height:auto; aspect-ratio:16/9; transform:translateX(-50%); opacity:.7; mask-image:linear-gradient(to bottom,transparent,black 25%,black 80%,transparent); } }
-@media (max-width:720px) and (orientation:portrait) { .hero-video { top:calc(370px - 27vw); } }
+/* Phones: zoom in so the planet's horizon arcs edge to edge just above the badge (planet top sits at 35% of the frame) */
+@media (max-width:720px) and (orientation:portrait) { .hero-video { top:calc(138px - 57vw); width:290vw; max-width:none; opacity:.85; filter:brightness(1.2); mask-image:linear-gradient(to bottom,black 72%,transparent); } }
 @media (max-width:720px) { .site-header { top:10px; width:calc(100% - 20px); height:58px; padding-left:16px; } .desktop-nav { display:none; } .nav-cta { padding:11px 13px; } .hero { display:block; padding:132px 20px 72px; min-height:auto; } h1 { font-size:clamp(48px,16vw,76px); line-height:.9; } .eyebrow { margin-bottom:25px; } .hero-lower { margin-top:34px; display:block; } .hero-actions { margin-top:26px; flex-direction:column; align-items:stretch; max-width:360px; } }
 @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
 
@@ -1187,5 +1188,41 @@ button { color:inherit; }
 @media (prefers-reduced-motion:reduce) {
   .hero-stars { animation:none; }
   .orbit-ring,.orbit-track,.orbit-item>span,.orbit-core::after,.roadmap-now,.improve-steps li,.improve-dot { animation:none; }
-  .stat-digit-track,.stat-counter-suffix { transition:none; }}
+  .stat-digit-track,.stat-counter-suffix { transition:none; }
+}
+
+/* Phone polish (last, so it wins over earlier phone rules): readable label floor, 40px+ tap targets, tighter stacked cards */
+@media (max-width:720px) {
+  .eyebrow,.hero-badge,.tech-label,.pale-badge,.final-visual-label,.card-index,.service-number,.page-index { font-size:10px; }
+  .catalog-row>div>p,.catalog-row>span:not(.icon-glyph),.process-page-row>span,.process-page-row small,.integrated-team span,.career-culture span,.work-row>a>div:nth-child(2) small,.work-row>a>div:nth-child(2)>span,.article-row small,.article-row>a>span,.job-row small,.roadmap-row>small,.roadmap-ui-top>small,.case-overview p,.case-story span,.contact-aside div span,.legal-page aside p,.legal-page section>span,.deliverable-row span,.working-rhythm div p,.footer-links p { font-size:10px; }
+  .tile-tags span,.solution-detail-card small,.solution-card>div span,.sample-badge,.improve-steps li { font-size:9.5px; }
+  .orbit-item>span { font-size:8.5px; }
+  .footer-brand>p,.mobile-menu-bottom>p { font-size:9.5px; }
+  .final-visual-row small,.final-visual-row span { font-size:10px; }
+  .hero-badge { letter-spacing:.06em; }
+  .post-card p { padding-right:48px; }
+  .post-meta,.post-meta small,.manifesto-grid span,.why-card>span:not(.icon-glyph),.solution-detail-card>span:not(.icon-glyph),.solution-map-track span,.detail-breadcrumb { font-size:10px; }
+
+  .footer-links>div { gap:0; }
+  .footer-links a,.footer-bottom a,.detail-breadcrumb a,.contact-aside a,.contact-form-heading a { display:inline-flex; align-items:center; min-height:40px; }
+  .detail-breadcrumb a { min-width:40px; justify-content:center; margin-inline:-8px; padding-inline:8px; }
+  .section-link,.text-link { padding-top:14px; }
+  .tile-cta { padding-top:16px; }
+  .footer-insights>a { padding-top:12px; }
+
+  .tile-card { padding:20px; }
+  .tile-card>p { margin:10px 0 6px; }
+  .tile-tags { padding-top:4px; margin-bottom:0; }
+  .tile-cta { margin-top:-2px; }
+  .plan-card h3 { margin:20px 0 8px; font-size:26px; }
+  .plan-card ul { margin-bottom:16px; padding:14px 0; gap:8px; }
+  .catalog-row { grid-template-columns:28px 24px minmax(0,1fr) 44px; padding:18px 0; }
+  .catalog-row>p { grid-column:3/5; }
+  .catalog-row>a { grid-column:4; grid-row:1; justify-self:end; width:44px; margin-top:0; padding:0; gap:0; font-size:0; }
+  .solution-detail-card h2 { margin:18px 0 8px; font-size:24px; }
+  .solution-detail-card>div { margin-top:14px; }
+  .work-row .project-visual { min-height:210px; }
+  .principles .why-card h3 { margin-top:24px; }
+  .process-page-row { padding:18px 0; }
+}
 
