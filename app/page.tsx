@@ -30,6 +30,7 @@ export default function Home() {
   return (
     <>
       <section className="hero" aria-labelledby="hero-title">
+        <video className="hero-video" src="/video/hero-planet.mp4" poster="/video/hero-planet-poster.webp" autoPlay muted loop playsInline preload="auto" aria-hidden="true" />
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-copy">
           <p className="eyebrow hero-kicker"><span /> Your digital growth &amp; technology partner</p>
