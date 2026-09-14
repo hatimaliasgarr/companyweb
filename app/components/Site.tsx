@@ -12,14 +12,16 @@ export function SectionHeading({
   title,
   copy,
   light = false,
+  center = false,
 }: {
   eyebrow: string;
   title: React.ReactNode;
   copy?: string;
   light?: boolean;
+  center?: boolean;
 }) {
   return (
-    <div className={`section-heading ${light ? "on-light" : ""}`}>
+    <div className={`section-heading ${light ? "on-light" : ""} ${center ? "on-center" : ""}`}>
       <p className="eyebrow"><span />{eyebrow}</p>
       <div>
         <h2>{title}</h2>
@@ -66,13 +68,31 @@ export function FinalCta({ title = <>Ready to turn the problem<br />{" "}<em>int
   return (
     <section className="final-cta">
       <div className="final-orbit" aria-hidden="true"><span>Z</span></div>
-      <p className="eyebrow"><span />Start with the challenge</p>
-      <h2>{title}</h2>
-      <div className="final-cta-row">
-        <p>Tell us what is stuck, changing or ready to grow. We&apos;ll help define the clearest next step.</p>
-        <div>
-          <Link className="button button-light" href="/contact">Tell us your challenge <ArrowRight size={17} /></Link>
-          <Link className="text-link" href="/process">See how we work <ArrowRight size={15} /></Link>
+      <div className="final-cta-grid">
+        <div className="final-visual-card" aria-hidden="true">
+          <p className="final-visual-label">The working path</p>
+          {[
+            ["01", "Challenge", "What needs to change?"],
+            ["02", "Roadmap", "What should happen first?"],
+            ["03", "Delivery", "One team builds it."],
+            ["04", "Measurement", "Evidence guides the next move."],
+          ].map(([number, label, copy]) => (
+            <div className="final-visual-row" key={number}>
+              <span>{number}</span>
+              <div><small>{label}</small><strong>{copy}</strong></div>
+            </div>
+          ))}
+        </div>
+        <div className="final-copy">
+          <p className="eyebrow"><span />Start with the challenge</p>
+          <h2>{title}</h2>
+          <div className="final-cta-row">
+            <p>Tell us what is stuck, changing or ready to grow. We&apos;ll help define the clearest next step.</p>
+            <div>
+              <Link className="button button-light" href="/contact">Tell us your challenge <ArrowRight size={17} /></Link>
+              <Link className="text-link" href="/process">See how we work <ArrowRight size={15} /></Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>

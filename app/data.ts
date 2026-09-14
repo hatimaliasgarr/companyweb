@@ -432,6 +432,30 @@ export const industries = ["Startups", "Healthcare", "Retail", "E-commerce", "Re
 
 export const technology = ["React", "Next.js", "Node.js", "Python", "AWS", "Vercel", "Supabase", "MongoDB", "PostgreSQL", "Firebase", "Cloudflare", "Figma", "GitHub"];
 
+// Answers stay grounded in how the site already describes the work; no commercial claims.
+export const faqs = [
+  {
+    q: "What does “one accountable partner” mean in practice?",
+    a: "Strategy, design, engineering, automation and growth share one roadmap and one team, accountable from diagnosis through improvement. You work with Zerobugg, not with a chain of vendors and the gaps between them.",
+  },
+  {
+    q: "How does an engagement start?",
+    a: "With understanding, not a proposal. We learn how the business makes money and where work slows down, diagnose the friction that matters most, then agree the highest-value moves, their sequence and how success will be measured.",
+  },
+  {
+    q: "Can you work alongside our existing team?",
+    a: "Yes. The dedicated-team model embeds Zerobugg specialists as an integrated extension of your company and its internal rhythm — flexible capacity, embedded collaboration and direct access to specialists.",
+  },
+  {
+    q: "What do you build with?",
+    a: "React, Next.js, Node.js, Python, PostgreSQL, Supabase, Cloudflare, AWS and more — chosen for the workflow rather than the other way around. The same thinking applies to the CRM, commerce and analytics systems you already run.",
+  },
+  {
+    q: "How is success measured?",
+    a: "Success measures are agreed before delivery, not added after launch. Analytics is planned into the experience from day one, so reporting connects activity to the decisions the business actually needs to make.",
+  },
+];
+
 export const capabilityItems = [
   { icon: Gauge, title: "Fast loading", copy: "Performance considered from architecture through launch." },
   { icon: Search, title: "Search ready", copy: "Semantic, structured and built for discoverability." },

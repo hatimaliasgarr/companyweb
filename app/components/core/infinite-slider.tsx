@@ -10,6 +10,7 @@ export type InfiniteSliderProps = {
   duration?: number;
   speedOnHover?: number;
   direction?: "horizontal" | "vertical";
+  reverse?: boolean;
   className?: string;
 };
 
@@ -19,6 +20,7 @@ export function InfiniteSlider({
   duration = 30,
   speedOnHover,
   direction = "horizontal",
+  reverse = false,
   className = "",
 }: InfiniteSliderProps) {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -54,6 +56,7 @@ export function InfiniteSlider({
           width: "max-content",
           gap: `${gap}px`,
           animationDuration: `${duration}s`,
+          animationDirection: reverse ? "reverse" : "normal",
         }}
       >
         <div
