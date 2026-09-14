@@ -14,6 +14,7 @@ import { InfiniteSlider } from "./components/core/infinite-slider";
 import { StatCounter } from "./components/StatCounter";
 import { FaqAccordion } from "./components/FaqAccordion";
 import { HeroVideo } from "./components/HeroVideo";
+import { siCloudflare, siFigma, siFirebase, siGithub, siMongodb, siNextdotjs, siNodedotjs, siPostgresql, siPython, siReact, siSupabase, siVercel } from "simple-icons";
 
 export const metadata: Metadata = {
   title: { absolute: "Zerobugg — Your Digital Growth & Technology Partner" },
@@ -24,6 +25,22 @@ export const metadata: Metadata = {
 };
 
 const serviceMarqueeRows = [services.slice(0, Math.ceil(services.length / 2)), services.slice(Math.ceil(services.length / 2))];
+
+// Monochrome brand marks from Simple Icons (CC0); AWS has no mark there, so it shows as text only.
+const techLogos: Partial<Record<string, { path: string }>> = {
+  React: siReact,
+  "Next.js": siNextdotjs,
+  "Node.js": siNodedotjs,
+  Python: siPython,
+  Vercel: siVercel,
+  Supabase: siSupabase,
+  MongoDB: siMongodb,
+  PostgreSQL: siPostgresql,
+  Firebase: siFirebase,
+  Cloudflare: siCloudflare,
+  Figma: siFigma,
+  GitHub: siGithub,
+};
 
 // Decorative bento visuals: roadmap bars (start/span as % of the track), orbit labels, improvement loop.
 const roadmapRows = [
@@ -69,10 +86,16 @@ export default function Home() {
         {/* A labelled scroll region needs a focus target for keyboard-only horizontal scrolling. */}
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
         <div className="tech-rail" role="region" aria-label="Scrollable technology list" tabIndex={0}>
-          <InfiniteSlider speedOnHover={20} gap={0} duration={30}>
-            {technology.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
+          <InfiniteSlider speedOnHover={20} gap={0} duration={30} copies={3}>
+            {technology.map((item) => {
+              const logo = techLogos[item];
+              return (
+                <span key={item}>
+                  {logo ? <svg className="tech-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={logo.path} /></svg> : null}
+                  {item}
+                </span>
+              );
+            })}
           </InfiniteSlider>
         </div>
       </section>
@@ -180,7 +203,7 @@ export default function Home() {
         <div className="chip-rows">
           {serviceMarqueeRows.map((row, rowIndex) => (
             <div className="chip-row" key={rowIndex}>
-              <InfiniteSlider duration={rowIndex === 0 ? 46 : 58} reverse={rowIndex === 1} gap={14}>
+              <InfiniteSlider duration={rowIndex === 0 ? 46 : 58} reverse={rowIndex === 1} gap={14} copies={4}>
                 {row.map((service) => {
                   const Icon = service.icon;
                   return (
