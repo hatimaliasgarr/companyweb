@@ -179,7 +179,8 @@ button { color:inherit; }
 .footer-links p { margin:0 0 10px; color:#898b95; font:9px var(--font-mono); text-transform:uppercase; letter-spacing:.13em; }
 .footer-links a { color:#b9bac2; font-size:13px; transition:color .2s; }
 .footer-links a:hover { color:#fff; }
-.footer-word { margin-top:72px; overflow:hidden; color:#efede5; font-size:clamp(64px,13.5vw,190px); font-weight:750; line-height:.72; letter-spacing:-0.047em; }
+/* "ZEROBUGG" in Google Sans is 5.272em wide at this tracking, so 18.9cqw spans the footer exactly at any width; line-height 1 keeps the 0.733em caps from being clipped */
+.footer-word { margin-top:56px; overflow:hidden; color:#efede5; font-size:18.9cqw; font-weight:750; line-height:1; letter-spacing:-0.047em; white-space:nowrap; }
 .footer-bottom { display:flex; justify-content:space-between; align-items:center; margin-top:30px; padding-top:22px; border-top:1px solid rgba(255,255,255,.12); color:#8f9099; font:9px var(--font-mono); letter-spacing:.07em; text-transform:uppercase; }
 .footer-bottom>div { display:flex; gap:18px; }
 
@@ -813,7 +814,7 @@ button { color:inherit; }
   .footer-links { grid-template-columns:1fr 1fr; }
   .footer-links>div { gap:10px; }
   .footer-links>div:last-child { grid-column:1/-1; }
-  .footer-word { margin-top:48px; font-size:min(88px,20.2cqw); }
+  .footer-word { margin-top:36px; }
   .footer-bottom { margin-top:20px; padding-top:16px; font-size:10px; }
   .footer-bottom { gap:20px; align-items:flex-start; }
   .detail-breadcrumb { top:76px; left:clamp(16px,5vw,20px); right:clamp(16px,5vw,20px); }
