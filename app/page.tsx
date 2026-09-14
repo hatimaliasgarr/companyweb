@@ -14,6 +14,7 @@ import { FinalCta, Reveal, SectionHeading } from "./components/Site";
 import { InfiniteSlider } from "./components/core/infinite-slider";
 import { StatCounter } from "./components/StatCounter";
 import { FaqAccordion } from "./components/FaqAccordion";
+import { HeroVideo } from "./components/HeroVideo";
 
 export const metadata: Metadata = {
   title: { absolute: "Zerobugg — Your Digital Growth & Technology Partner" },
@@ -48,7 +49,7 @@ export default function Home() {
   return (
     <>
       <section className="hero" aria-labelledby="hero-title">
-        <video className="hero-video" src="/video/hero-planet.mp4" poster="/video/hero-planet-poster.webp" autoPlay muted loop playsInline preload="auto" aria-hidden="true" />
+        <HeroVideo />
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-stars" aria-hidden="true" />
         <div className="hero-copy">
