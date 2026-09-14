@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { processSteps, services } from "../data";
 import { AppLink as Link } from "./AppLink";
 import { ArrowRight } from "./Icons";
@@ -38,26 +38,21 @@ export function ServiceExplorer() {
   );
 }
 
+/** Six steps in a quiet grid; each fades up in turn (via .reveal) while its hairline draws in. */
 export function ProcessExperience() {
-  const [active, setActive] = useState(0);
-
   return (
-    <div className="process-experience">
-      <div className="process-visual" aria-hidden="true">
-        <div className="process-ring"><span>{processSteps[active].number}</span></div>
-        <p>{processSteps[active].title}</p>
-      </div>
-      <ol className="process-list">
-        {processSteps.map((step, index) => (
-          <li key={step.title} className={index === active ? "is-active" : ""}>
-            <button type="button" onClick={() => setActive(index)} onMouseEnter={() => setActive(index)} aria-pressed={index === active}>
-              <span>{step.number}</span>
-              <strong>{step.title}</strong>
-              <span className="process-copy">{step.copy}</span>
-            </button>
-          </li>
-        ))}
-      </ol>
-    </div>
+    <ol className="process-grid">
+      {processSteps.map((step, index) => (
+        <li
+          key={step.title}
+          className="process-step reveal"
+          style={{ transitionDelay: `${index * 70}ms`, "--step-delay": `${index * 70}ms` } as CSSProperties}
+        >
+          <span className="process-num">{step.number}</span>
+          <h3>{step.title}</h3>
+          <p>{step.copy}</p>
+        </li>
+      ))}
+    </ol>
   );
 }

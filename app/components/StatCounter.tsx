@@ -41,7 +41,7 @@ export function StatCounter({ value, suffix = "" }: { value: number; suffix?: st
             <span
               className="stat-digit-track"
               style={{
-                transform: rolled ? `translateY(-${Number(digit)}em)` : "translateY(0)",
+                transform: rolled ? `translateY(calc(-${Number(digit)} * var(--stat-step, 1em)))` : "translateY(0)",
                 transitionDelay: `${120 + index * 140}ms`,
               }}
             >

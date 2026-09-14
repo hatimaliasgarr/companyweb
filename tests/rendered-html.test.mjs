@@ -100,10 +100,14 @@ test("renders the mobile navigation trigger as a crisp vector instead of a font 
   assert.doesNotMatch(trigger, /≡/);
 });
 
-test("keeps the hero decision path available to assistive technology", async () => {
+test("keeps the engagement path available to assistive technology", async () => {
   const { body } = await html("/");
-  assert.match(body, /class="partner-path"/);
-  assert.doesNotMatch(body, /class="partner-path" aria-hidden="true"/);
+  // The decorative working-path card may be aria-hidden, but the decision path
+  // must remain reachable as a real, focusable link plus server-rendered copy.
+  const heroButton = body.match(/<a href="\/process" class="button[^"]*"[^>]*>[\s\S]*?<\/a>/)?.[0] ?? "";
+  assert.match(heroButton, /See how we work/);
+  assert.doesNotMatch(heroButton, /^<a [^>]*aria-hidden="true"/);
+  assert.match(body, /Tell us what is stuck, changing or ready to grow/);
 });
 
 test("renders one stable, scrollable technology list", async () => {
