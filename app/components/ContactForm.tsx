@@ -8,7 +8,7 @@ type FormState = "idle" | "prepared";
 type CopyState = "idle" | "copied" | "failed";
 
 const WHATSAPP_NUMBER = "919752306452";
-const EMAIL_ADDRESS = "hatimaliasgar21@gmail.com";
+const EMAIL_ADDRESS = "office@zerobugg.in";
 
 function buildBrief(form: HTMLFormElement) {
   const data = Object.fromEntries(new FormData(form));
@@ -29,7 +29,7 @@ function buildWhatsAppMessage(form: HTMLFormElement) {
   const data = Object.fromEntries(new FormData(form));
   const context = new URLSearchParams(window.location.search).get("context")?.slice(0, 120);
   return [
-    "👋 *Hi Hatim, here is my project enquiry:*",
+    "👋 *Hi Zerobugg, here is my project enquiry:*",
     "",
     `*Name:* ${String(data.name || "")}`,
     `*Email:* ${String(data.email || "")}`,

@@ -399,7 +399,7 @@ function CareersPage() {
       </section>
       <section className="openings section-pad">
         <SectionHeading eyebrow="Open roles" title={<>No confirmed openings<br />{" "}<em>right now.</em></>} copy="We are always interested in exceptional people across strategy, design, engineering and growth." />
-        <div className="talent-intro"><p>If the way we work resonates, send a concise introduction with the problems you enjoy solving and a link to relevant work.</p><a className="button button-light" href="mailto:hatimaliasgar21@gmail.com?subject=Thoughtful%20introduction%20to%20Zerobugg">Send a thoughtful introduction <ArrowRight size={16} /></a></div>
+        <div className="talent-intro"><p>If the way we work resonates, send a concise introduction with the problems you enjoy solving and a link to relevant work.</p><a className="button button-light" href="mailto:office@zerobugg.in?subject=Thoughtful%20introduction%20to%20Zerobugg">Send a thoughtful introduction <ArrowRight size={16} /></a></div>
       </section>
       <FinalCta />
     </>
@@ -416,15 +416,13 @@ function ContactPage() {
           <h2>A useful first conversation.</h2>
           <p>We will ask about the business, the people involved, the current reality and the result you are trying to create.</p>
           <div>
-            <span>Contact Person</span>
-            <p style={{ margin: 0, fontSize: "18px", fontWeight: 600, color: "#111216" }}>Hatim Aliasgar</p>
             <span>Phone / WhatsApp</span>
             <a href="tel:+919752306452">+91 9752306452</a>
             <a href="https://wa.me/919752306452" target="_blank" rel="noopener noreferrer" style={{ color: "#16a34a", fontSize: "14px", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "6px", marginTop: "4px" }}>
               Chat directly on WhatsApp <MoveUpRight size={14} />
             </a>
             <span>Direct Email</span>
-            <a href="mailto:hatimaliasgar21@gmail.com">hatimaliasgar21@gmail.com</a>
+            <a href="mailto:office@zerobugg.in">office@zerobugg.in</a>
             <span>Instagram</span>
             <a href="https://www.instagram.com/zerobugg/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
               @zerobugg <MoveUpRight size={14} />
@@ -451,14 +449,14 @@ function LegalPage({ type }: { type: "privacy" | "terms" }) {
             ["Information we collect", "The contact form prepares a message in your own email app. Zerobugg receives the details only after you choose to send that email. Hosting providers may process basic technical logs needed to deliver and secure the website."],
             ["How we use information", "We use submitted information to respond to enquiries, evaluate potential engagements, operate and improve the website, and meet legal or security obligations."],
             ["Sharing and retention", "We do not sell personal information. Information may be processed by service providers that help us operate communications, analytics or hosting, subject to appropriate safeguards. We retain information only as long as reasonably needed."],
-            ["Your choices", "You may request access, correction or deletion of personal information by contacting hatimaliasgar21@gmail.com. Applicable rights depend on your location."],
-            ["Contact", "Questions about this policy can be sent to hatimaliasgar21@gmail.com."],
+            ["Your choices", "You may request access, correction or deletion of personal information by contacting office@zerobugg.in. Applicable rights depend on your location."],
+            ["Contact", "Questions about this policy can be sent to office@zerobugg.in."],
           ] : [
             ["Using this website", "You may use this website for lawful informational purposes. Do not attempt to disrupt, reverse engineer or misuse the website or its services."],
             ["Content and intellectual property", "Unless stated otherwise, Zerobugg owns or licenses the website content, visual identity and original materials. You may not republish or commercially exploit them without written permission."],
             ["Information, not advice", "Website content is general information and does not create a professional relationship, binding proposal or guarantee of results."],
             ["Third-party links", "Links to third-party services are provided for convenience. Zerobugg is not responsible for their content, availability or practices."],
-            ["Changes and contact", "We may update these terms as the website evolves. Questions can be sent to hatimaliasgar21@gmail.com."],
+            ["Changes and contact", "We may update these terms as the website evolves. Questions can be sent to office@zerobugg.in."],
           ]).map(([title, copy], index) => <section key={title}><span>0{index + 1}</span><h2>{title}</h2><p>{copy}</p></section>)}
         </div>
       </section>

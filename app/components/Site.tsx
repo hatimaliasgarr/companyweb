@@ -114,9 +114,8 @@ export function Footer() {
           <div><p>Company</p><Link href="/about">About</Link><Link href="/work">Work</Link><Link href="/process">Process</Link><Link href="/careers">Careers</Link><Link href="/contact">Contact</Link></div>
           <div>
             <p>Contact</p>
-            <span style={{ display: "block", color: "#e4e1da", fontSize: "14px", fontWeight: 600 }}>Hatim Aliasgar</span>
             <a href="tel:+919752306452">+91 9752306452</a>
-            <a href="mailto:hatimaliasgar21@gmail.com">hatimaliasgar21@gmail.com</a>
+            <a href="mailto:office@zerobugg.in">office@zerobugg.in</a>
             <a href="https://www.instagram.com/zerobugg/" target="_blank" rel="noopener noreferrer">Instagram (@zerobugg)</a>
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>

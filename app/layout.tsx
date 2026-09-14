@@ -55,7 +55,7 @@ export default function RootLayout({
                     {
                       "@type": "ContactPoint",
                       contactType: "customer support",
-                      email: "hatimaliasgar21@gmail.com",
+                      email: "office@zerobugg.in",
                       availableLanguage: ["English"],
                     },
                   ],

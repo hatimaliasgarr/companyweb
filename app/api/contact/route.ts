@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   // Integration boundary: forward the normalized payload to email, CRM or storage here.
   // Until a provider is configured, the public form uses a transparent mailto handoff.
   return Response.json(
-    { ok: false, error: "Contact delivery is not configured. Email hatimaliasgar21@gmail.com instead." },
+    { ok: false, error: "Contact delivery is not configured. Email office@zerobugg.in instead." },
     { status: 503 },
   );
 }
