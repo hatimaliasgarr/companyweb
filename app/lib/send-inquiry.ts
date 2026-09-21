@@ -7,7 +7,7 @@
  * on the Worker, on Vercel's Node runtime and on the Node/Docker server, so
  * all three entry points share this one implementation.
  */
-import { INQUIRY_RECIPIENT, buildHtml, buildSubject, buildText, type Inquiry } from "./contact-inquiry";
+import { INQUIRY_RECIPIENT, buildHtml, buildSubject, buildText, type Inquiry } from "./contact-inquiry.js";
 
 const ENDPOINT = "https://api.resend.com/emails";
 const TIMEOUT_MS = 10_000;

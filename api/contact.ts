@@ -7,8 +7,8 @@
  * `app/api/contact/route.ts` mirrors this for the Node/Docker server.
  */
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { MAX_BODY_BYTES, allowRequest, clientKey, parseInquiry } from "../app/lib/contact-inquiry";
-import { MailNotConfiguredError, sendInquiry } from "../app/lib/send-inquiry";
+import { MAX_BODY_BYTES, allowRequest, clientKey, parseInquiry } from "../app/lib/contact-inquiry.js";
+import { MailNotConfiguredError, sendInquiry } from "../app/lib/send-inquiry.js";
 
 type VercelRequest = IncomingMessage & { body?: unknown };
 
