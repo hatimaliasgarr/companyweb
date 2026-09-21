@@ -7,9 +7,8 @@
  * `app/api/contact/route.ts` mirrors this for the Node/Docker server.
  */
 import type { IncomingMessage, ServerResponse } from "node:http";
-import nodemailer from "nodemailer";
 import { MAX_BODY_BYTES, allowRequest, clientKey, parseInquiry } from "../app/lib/contact-inquiry";
-import { MailNotConfiguredError, sendInquiry, type CreateTransport } from "../app/lib/send-inquiry";
+import { MailNotConfiguredError, sendInquiry } from "../app/lib/send-inquiry";
 
 type VercelRequest = IncomingMessage & { body?: unknown };
 
@@ -66,9 +65,9 @@ export default async function handler(req: VercelRequest, res: ServerResponse) {
   if (parsed.status === "invalid") return send(res, 422, { success: false, error: parsed.error });
 
   try {
-    await sendInquiry(parsed.inquiry, nodemailer.createTransport as unknown as CreateTransport);
+    await sendInquiry(parsed.inquiry);
   } catch (error) {
-    // Server-side only: never leak SMTP responses or environment detail.
+    // Server-side only: never leak provider responses or environment detail.
     console.error("[contact] delivery failed:", error instanceof Error ? error.message : error);
     const status = error instanceof MailNotConfiguredError ? 503 : 502;
     return send(res, status, { success: false, error: "Unable to send inquiry" });

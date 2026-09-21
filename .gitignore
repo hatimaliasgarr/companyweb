@@ -42,3 +42,8 @@ yarn-error.log*
 /outputs/
 /work/
 *.tsbuildinfo
+.dev.vars
+.dev.vars.*
+
+# local dev server log
+.devserver.log

@@ -38,9 +38,10 @@ npm test
 The form posts JSON to `POST /api/contact` and the inquiry is emailed server-side to `office@zerobugg.in`; visitors never open a mail client.
 
 - `app/lib/contact-inquiry.ts` — validation, sanitisation, email templates and rate limiting, shared by both boundaries.
-- `api/contact.ts` — Vercel serverless function (Node runtime). This is the endpoint in production on Vercel.
-- `app/api/contact/route.ts` — the same contract for the Node/Docker server. Cloudflare Workers cannot open SMTP sockets, so that target returns 503 and logs the reason.
+- `app/lib/send-inquiry.ts` — delivery via the Resend HTTP API. Runtime-agnostic: one `fetch`, no Node-only imports.
+- `app/api/contact/route.ts` — the endpoint for the Cloudflare Worker (production), the dev server and the Node/Docker server.
+- `api/contact.ts` — the same contract as a Vercel serverless function.
 
-Delivery uses Nodemailer over Gmail SMTP and needs `GMAIL_USER` and `GMAIL_APP_PASSWORD` (a Google App Password, never the account password). Without them the endpoint returns 503 and no secret ever reaches the browser. `npm run dev` runs routes in workerd, so use `vercel dev` or `npm run build && npm start` to exercise real delivery locally.
+Delivery is an HTTPS call, not SMTP, because Cloudflare Workers cannot open TCP sockets. Set `RESEND_API_KEY` (and optionally `CONTACT_FROM`, whose domain must be verified in Resend). Without the key the endpoint returns 503 and no secret ever reaches the browser. `Reply-To` is the visitor, so replying from the inbox answers them directly.
 
 Portfolio concepts, testimonials, careers, and any outcome metrics remain explicitly labeled for verification before commercial publication.
