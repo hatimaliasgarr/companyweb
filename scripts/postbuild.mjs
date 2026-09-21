@@ -72,6 +72,22 @@ try {
       fs.writeFileSync(targetFile, html, "utf-8");
     }
   }
+
+    // Vercel (and any static host) serves dist/ as files, so the metadata
+    // routes in app/robots.ts and app/sitemap.ts never reached it and both
+    // URLs 404'd in production. They work here because the worker renders
+    // them, so write the worker's own output to disk rather than
+    // regenerating it: app/*.ts stays the single source of truth.
+    for (const file of ["sitemap.xml", "robots.txt"]) {
+      const res = await worker.fetch(new Request(`http://localhost/${file}`), env, ctx);
+      if (res.status === 200) {
+        fs.writeFileSync(path.join(distDir, file), await res.text(), "utf-8");
+        console.log(`[postbuild] Wrote dist/${file} for static hosting.`);
+      } else {
+        console.warn(`[postbuild] Could not render /${file} (status ${res.status}).`);
+      }
+    }
+
   console.log(`[postbuild] Generated static HTML for ${routes.length} routes in dist/`);
 } catch (err) {
   console.warn("[postbuild] Static pre-rendering notice:", err.message);
