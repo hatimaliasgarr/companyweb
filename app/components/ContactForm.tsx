@@ -4,15 +4,22 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { AppLink as Link } from "./AppLink";
 import { ArrowRight, Check, MoveUpRight, Whatsapp } from "./Icons";
 
-type FormState = "idle" | "prepared";
+type SendState = "idle" | "sending" | "sent" | "error";
 type CopyState = "idle" | "copied" | "failed";
 
 const WHATSAPP_NUMBER = "919752306452";
 const EMAIL_ADDRESS = "office@zerobugg.in";
 
+const SENT_MESSAGE = "Thanks! Your inquiry has been sent. We'll get back to you shortly.";
+const FAILED_MESSAGE = "Something went wrong while sending your inquiry. Please try again.";
+
+function readContext() {
+  return new URLSearchParams(window.location.search).get("context")?.slice(0, 120) ?? "";
+}
+
 function buildBrief(form: HTMLFormElement) {
   const data = Object.fromEntries(new FormData(form));
-  const context = new URLSearchParams(window.location.search).get("context")?.slice(0, 120);
+  const context = readContext();
   return [
     `Name: ${String(data.name || "")}`,
     `Email: ${String(data.email || "")}`,
@@ -27,7 +34,7 @@ function buildBrief(form: HTMLFormElement) {
 
 function buildWhatsAppMessage(form: HTMLFormElement) {
   const data = Object.fromEntries(new FormData(form));
-  const context = new URLSearchParams(window.location.search).get("context")?.slice(0, 120);
+  const context = readContext();
   return [
     "👋 *Hi Zerobugg, here is my project enquiry:*",
     "",
@@ -43,19 +50,22 @@ function buildWhatsAppMessage(form: HTMLFormElement) {
 }
 
 export function ContactForm({ needs }: { needs: string[] }) {
-  const [state, setState] = useState<FormState>("idle");
+  const [sendState, setSendState] = useState<SendState>("idle");
+  const [errorMessage, setErrorMessage] = useState(FAILED_MESSAGE);
   const [copyState, setCopyState] = useState<CopyState>("idle");
   const [briefText, setBriefText] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   const needRef = useRef<HTMLSelectElement>(null);
   const contextRef = useRef<HTMLParagraphElement>(null);
+  // Guards a second submit slipping through before React re-renders the button.
+  const inFlight = useRef(false);
 
   useEffect(() => {
     const requestedNeed = new URLSearchParams(window.location.search).get("need");
     if (requestedNeed && needs.includes(requestedNeed) && needRef.current) {
       needRef.current.value = requestedNeed;
     }
-    const context = new URLSearchParams(window.location.search).get("context")?.slice(0, 120);
+    const context = readContext();
     if (context && contextRef.current) {
       contextRef.current.textContent = `Starting point: ${context}`;
       contextRef.current.hidden = false;
@@ -66,24 +76,56 @@ export function ContactForm({ needs }: { needs: string[] }) {
     if (!formRef.current) return;
     if (!formRef.current.reportValidity()) return;
     const whatsAppText = buildWhatsAppMessage(formRef.current);
-    const standardBrief = buildBrief(formRef.current);
-    setBriefText(standardBrief);
-    setState("prepared");
+    setBriefText(buildBrief(formRef.current));
     setCopyState("idle");
     const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsAppText)}`;
     window.open(waUrl, "_blank", "noopener,noreferrer");
   }
 
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const nextBrief = buildBrief(event.currentTarget);
-    const company = String(new FormData(event.currentTarget).get("company") || "");
-    const name = String(new FormData(event.currentTarget).get("name") || "");
-    const subject = encodeURIComponent(`Project enquiry: ${company || name}`);
-    setBriefText(nextBrief);
-    setState("prepared");
-    setCopyState("idle");
-    window.location.href = `mailto:${EMAIL_ADDRESS}?subject=${subject}&body=${encodeURIComponent(nextBrief)}`;
+    if (inFlight.current) return;
+
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const payload = {
+      name: String(data.get("name") || ""),
+      email: String(data.get("email") || ""),
+      description: String(data.get("description") || ""),
+      company: String(data.get("company") || ""),
+      need: String(data.get("need") || ""),
+      context: readContext(),
+      website: String(data.get("website") || ""),
+    };
+
+    inFlight.current = true;
+    setSendState("sending");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = (await response.json().catch(() => null)) as { success?: boolean; error?: string } | null;
+
+      if (response.ok && result?.success) {
+        setSendState("sent");
+        form.reset();
+        setBriefText("");
+        setCopyState("idle");
+      } else {
+        // Validation and rate-limit copy is written for visitors, so show it as-is.
+        const useServerCopy = response.status === 422 || response.status === 429;
+        setErrorMessage(useServerCopy && result?.error ? result.error : FAILED_MESSAGE);
+        setSendState("error");
+      }
+    } catch {
+      setErrorMessage(FAILED_MESSAGE);
+      setSendState("error");
+    } finally {
+      inFlight.current = false;
+    }
   }
 
   async function copyBrief() {
@@ -94,6 +136,8 @@ export function ContactForm({ needs }: { needs: string[] }) {
       setCopyState("failed");
     }
   }
+
+  const sending = sendState === "sending";
 
   return (
     <form ref={formRef} className="contact-form" onSubmit={submit}>
@@ -123,42 +167,52 @@ export function ContactForm({ needs }: { needs: string[] }) {
         </select>
       </label>
 
-      {state === "prepared" && (
+      {/* Honeypot: off-screen, untabbable and hidden from assistive tech, so only bots fill it. */}
+      <div className="contact-hp" aria-hidden="true">
+        <label htmlFor="contact-website">Leave this field empty</label>
+        <input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
+      {sendState === "sent" && (
         <div className="draft-status" role="status" tabIndex={-1}>
           <Check size={18} />
           <div>
-            <strong>Your draft is prepared.</strong>
+            <strong>{SENT_MESSAGE}</strong>
             <p>
-              Connect directly via{" "}
+              It is on its way to {EMAIL_ADDRESS}. Prefer to keep talking now? Message us on{" "}
               <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(briefText)}`}
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "#16a34a", fontWeight: 600 }}
               >
                 WhatsApp
-              </a>{" "}
-              or email <a href={`mailto:${EMAIL_ADDRESS}`}>{EMAIL_ADDRESS}</a>. Nothing is sent until you review and confirm.
+              </a>.
             </p>
           </div>
-          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", gridColumn: "2 / -1", marginTop: "8px" }}>
-            <button
-              type="button"
-              className="button-whatsapp-sm"
-              onClick={handleWhatsAppClick}
-            >
-              Open in WhatsApp <MoveUpRight size={13} />
-            </button>
+        </div>
+      )}
+
+      {sendState === "error" && (
+        <div className="draft-status draft-status-error" role="alert" tabIndex={-1}>
+          <div>
+            <strong>{errorMessage}</strong>
+            <p>
+              Your answers are still here, so you can send again. You can also email{" "}
+              <a href={`mailto:${EMAIL_ADDRESS}`}>{EMAIL_ADDRESS}</a> or use the WhatsApp button below.
+            </p>
+          </div>
+          {briefText && (
             <button type="button" onClick={copyBrief}>
               {copyState === "copied" ? "Brief copied" : "Copy brief"}
             </button>
-          </div>
+          )}
           {copyState === "failed" && <p className="copy-error">Automatic copy was blocked. Your answers remain in the form above.</p>}
         </div>
       )}
 
       <div className="form-footer">
-        <p>Nothing is sent until you review and send the email. See our <Link href="/privacy">privacy policy</Link>.</p>
+        <p>Your inquiry goes straight to our team. See our <Link href="/privacy">privacy policy</Link>.</p>
         <div className="form-actions" style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           <button
             className="button button-whatsapp"
@@ -167,8 +221,8 @@ export function ContactForm({ needs }: { needs: string[] }) {
           >
             <Whatsapp size={16} /> Send via WhatsApp
           </button>
-          <button className="button button-primary" type="submit">
-            Open my email draft <ArrowRight size={17} />
+          <button className="button button-primary" type="submit" disabled={sending} aria-busy={sending}>
+            {sending ? "Sending..." : <>Send inquiry <ArrowRight size={17} /></>}
           </button>
         </div>
       </div>

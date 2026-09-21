@@ -428,7 +428,7 @@ function ContactPage() {
               @zerobugg <MoveUpRight size={14} />
             </a>
             <span>How this form works</span>
-            <p>It prepares a private email draft in your own mail app or WhatsApp. You review and send it yourself.</p>
+            <p>It sends your brief straight to our inbox — no mail app needed. Prefer WhatsApp? That button is right there too.</p>
           </div>
         </div>
         <ContactForm needs={services.map((service) => service.title)} />

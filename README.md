@@ -33,6 +33,14 @@ npx tsc --noEmit
 npm test
 ```
 
-Contact submissions are validated by `app/api/contact/route.ts`. Connect the marked integration boundary to the chosen email, CRM, or database provider before collecting live enquiries.
+## Contact form
+
+The form posts JSON to `POST /api/contact` and the inquiry is emailed server-side to `office@zerobugg.in`; visitors never open a mail client.
+
+- `app/lib/contact-inquiry.ts` — validation, sanitisation, email templates and rate limiting, shared by both boundaries.
+- `api/contact.ts` — Vercel serverless function (Node runtime). This is the endpoint in production on Vercel.
+- `app/api/contact/route.ts` — the same contract for the Node/Docker server. Cloudflare Workers cannot open SMTP sockets, so that target returns 503 and logs the reason.
+
+Delivery uses Nodemailer over Gmail SMTP and needs `GMAIL_USER` and `GMAIL_APP_PASSWORD` (a Google App Password, never the account password). Without them the endpoint returns 503 and no secret ever reaches the browser. `npm run dev` runs routes in workerd, so use `vercel dev` or `npm run build && npm start` to exercise real delivery locally.
 
 Portfolio concepts, testimonials, careers, and any outcome metrics remain explicitly labeled for verification before commercial publication.

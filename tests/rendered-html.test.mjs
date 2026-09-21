@@ -143,9 +143,11 @@ test("removes unconfirmed roles and false form-delivery claims", async () => {
   assert.doesNotMatch(careers.body, /Senior Product Designer|Full-stack Engineer|Apply/);
 
   const contact = await html("/contact");
-  assert.match(contact.body, /prepares a private email draft/i);
-  assert.match(contact.body, /Nothing is sent until you review and send the email/i);
-  assert.match(contact.body, /Open my email draft/i);
+  assert.match(contact.body, /sends your brief straight to our inbox/i);
+  assert.match(contact.body, /Your inquiry goes straight to our team/i);
+  assert.match(contact.body, /Send inquiry/i);
+  // The form posts to /api/contact; it must not hand the visitor a mail draft.
+  assert.doesNotMatch(contact.body, /Open my email draft|Nothing is sent until you review/i);
   assert.doesNotMatch(contact.body, /name="phone"|name="budget"/);
   assert.doesNotMatch(contact.body, /Message received|Within 1–2 business days/);
 });
@@ -290,22 +292,57 @@ test("keeps draft, sample and empty publishing surfaces out of the index", async
 });
 
 test("keeps the unconfigured contact API honest", async () => {
-  const invalid = await fetchApp("/api/contact", {
-    method: "POST",
-    headers: { "content-type": "application/json", accept: "application/json" },
-    body: JSON.stringify({ name: "A" }),
-  });
-  assert.equal(invalid.status, 422);
+  const post = (body, ip) =>
+    fetchApp("/api/contact", {
+      method: "POST",
+      headers: { "content-type": "application/json", accept: "application/json", "x-forwarded-for": ip },
+      body: JSON.stringify(body),
+    });
 
-  const valid = await fetchApp("/api/contact", {
-    method: "POST",
-    headers: { "content-type": "application/json", accept: "application/json" },
-    body: JSON.stringify({ name: "Ada Lovelace", email: "ada@example.com", need: "Website", description: "We need a clearer website for a new service launch." }),
+  const valid = {
+    name: "Ada Lovelace",
+    email: "ada@example.com",
+    need: "Website",
+    description: "We need a clearer website for a new service launch.",
+  };
+
+  const invalid = await post({ name: "A" }, "203.0.113.1");
+  assert.equal(invalid.status, 422);
+  assert.equal((await invalid.json()).success, false);
+
+  // Honeypot submissions are accepted silently so bots get no signal.
+  const trapped = await post({ ...valid, website: "http://spam.example" }, "203.0.113.2");
+  assert.equal(trapped.status, 200);
+  assert.equal((await trapped.json()).success, true);
+
+  // Without GMAIL_USER / GMAIL_APP_PASSWORD delivery is unavailable, and the
+  // client is never told why.
+  const unconfigured = await post(valid, "203.0.113.3");
+  assert.equal(unconfigured.status, 503);
+  const payload = await unconfigured.json();
+  assert.equal(payload.success, false);
+  assert.equal(payload.error, "Unable to send inquiry");
+  assert.doesNotMatch(payload.error, /gmail|smtp|password/i);
+});
+
+test("rate-limits repeated contact submissions from one address", async () => {
+  const body = JSON.stringify({
+    name: "Ada Lovelace",
+    email: "ada@example.com",
+    description: "We need a clearer website for a new service launch.",
   });
-  assert.equal(valid.status, 503);
-  const payload = await valid.json();
-  assert.equal(payload.ok, false);
-  assert.match(payload.error, /not configured/i);
+  const post = () =>
+    fetchApp("/api/contact", {
+      method: "POST",
+      headers: { "content-type": "application/json", accept: "application/json", "x-forwarded-for": "198.51.100.7" },
+      body,
+    });
+
+  const statuses = [];
+  for (let attempt = 0; attempt < 6; attempt += 1) statuses.push((await post()).status);
+
+  assert.ok(statuses.slice(0, 5).every((status) => status === 503), `expected five accepted attempts, got ${statuses}`);
+  assert.equal(statuses[5], 429);
 });
 
 test("adds baseline security headers and canonical-host redirects", async () => {

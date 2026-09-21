@@ -21,6 +21,7 @@
   "dependencies": {
     "@vitejs/plugin-rsc": "0.5.26",
     "drizzle-orm": "0.45.2",
+    "nodemailer": "^7.0.13",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "react-server-dom-webpack": "19.2.6",
@@ -36,6 +37,7 @@
     "@openai/sites-vite-plugin": "0.1.0",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.2",
